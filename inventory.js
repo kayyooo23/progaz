@@ -1,6 +1,9 @@
 // Получение остатков. Сейчас API работает с тестовой 1С-базой через локальный
 // адаптер. Позже его адрес можно заменить без изменений в разметке сайта.
-const INVENTORY_API_URL = window.PROGAZ_INVENTORY_API_URL || 'http://localhost:8787/api/inventory';
+// На боевом домене (например, GitHub Pages) адрес по умолчанию не задаётся —
+// иначе страница по https стучалась бы на http://localhost и ловила mixed content.
+const isLocalDev = ['localhost', '127.0.0.1'].includes(location.hostname);
+const INVENTORY_API_URL = window.PROGAZ_INVENTORY_API_URL || (isLocalDev ? 'http://localhost:8787/api/inventory' : null);
 
 function inventoryBadge(article) {
   return `<span class="stock-badge stock-badge--loading" data-stock-article="${article}"><span class="dot"></span>Уточняем наличие</span>`;
@@ -21,6 +24,10 @@ function setInventoryBadge(element, item) {
 }
 
 async function loadInventory() {
+  if (!INVENTORY_API_URL) {
+    document.querySelectorAll('[data-stock-article]').forEach(element => setInventoryBadge(element, null));
+    return;
+  }
   try {
     const response = await fetch(INVENTORY_API_URL, { headers: { Accept: 'application/json' } });
     if (!response.ok) throw new Error(`Inventory API returned ${response.status}`);
