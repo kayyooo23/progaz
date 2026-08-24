@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Товар — ПРОГАЗ</title>
+<meta name="description" content="Карточка товара в магазине газового оборудования ПРОГАЗ, Пермь.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="container">
+    <span>Режим работы: пн–пт 9:00–18:00, сб–вс 10:00–16:00</span>
+    <a href="tel:+79082640158">+7 (908) 264-01-58</a>
+  </div>
+</div>
+<header class="header">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3-2 4-2 7a4 4 0 0 0 8 0c0-2-1-3-1-3s1 4-2 4-2-3-1-5c-3 1-6 4-6 8a6 6 0 0 0 12 0c0-5-4-7-8-11z"></path></svg></span>
+      ПРОГАЗ
+    </a>
+    <nav class="nav">
+      <a href="index.html" class="">Главная</a>
+      <a href="catalog.html" class="active">Каталог</a>
+      <a href="about.html" class="">О нас</a>
+      <a href="faq.html" class="">Вопросы</a>
+      <a href="contacts.html" class="">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href="tel:+79082640158">Позвонить</a>
+      <a class="cart-btn" href="cart.html" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span class="cart-count" style="display:none;">0</span>
+      </a>
+      <button class="nav-toggle" aria-label="Меню"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button>
+    </div>
+  </div>
+</header>
+
+<div id="productRoot"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3-2 4-2 7a4 4 0 0 0 8 0c0-2-1-3-1-3s1 4-2 4-2-3-1-5c-3 1-6 4-6 8a6 6 0 0 0 12 0c0-5-4-7-8-11z"></path></svg></span>
+          ПРОГАЗ
+        </a>
+        <p>Магазин газового оборудования для дома в Перми — более 5 лет продаём и помогаем подобрать котлы, колонки, плиты и счётчики.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="catalog.html?cat=kolonki">Колонки</a></li>
+          <li><a href="catalog.html?cat=kotly">Котлы</a></li>
+          <li><a href="catalog.html?cat=plity">Плиты</a></li>
+          <li><a href="catalog.html?cat=schetchiki">Счётчики</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="faq.html">Частые вопросы</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+79082640158">+7 (908) 264-01-58</a></li>
+          <li>г. Пермь, ул. Волховская, 38</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© ПРОГАЗ, 2024–2026. Магазин газового оборудования в Перми.</div>
+  </div>
+</footer>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script>
+const CATEGORY_ICONS = {
+  kolonki: '<rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="9.5" y1="6" x2="14.5" y2="6"></line><line x1="9.5" y1="10" x2="14.5" y2="10"></line><circle cx="12" cy="16" r="2"></circle>',
+  kotly: '<rect x="4" y="4" width="16" height="17" rx="2"></rect><rect x="7" y="8" width="10" height="6" rx="1"></rect><line x1="8" y1="18" x2="8" y2="18.01"></line><line x1="12" y1="18" x2="12" y2="18.01"></line><line x1="16" y1="18" x2="16" y2="18.01"></line>',
+  plity: '<rect x="3" y="4" width="18" height="17" rx="2"></rect><circle cx="8" cy="10" r="2"></circle><circle cx="16" cy="10" r="2"></circle><line x1="6" y1="17" x2="18" y2="17"></line>',
+  schetchiki: '<circle cx="12" cy="13" r="8"></circle><line x1="12" y1="13" x2="15" y2="9"></line><line x1="9" y1="2" x2="15" y2="2"></line>'
+};
+const CAT_NAME = Object.fromEntries(CATEGORIES.map(c => [c.code, c.name]));
+
+// Путь к фото по умолчанию: images/<slug>.jpg. Если файла нет — покажется иконка.
+function productImages(p){
+  if(p.images && p.images.length) return p.images;
+  return ['images/' + p.slug + '.jpg'];
+}
+function iconSvg(cat, strokeWidth){
+  return `<svg viewBox="0 0 24 24" fill="none" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">${CATEGORY_ICONS[cat]}</svg>`;
+}
+// Картинка с запасным вариантом: если файл не найден, подставляется иконка категории.
+function mediaImg(p, strokeWidth){
+  const src = productImages(p)[0];
+  const fallback = iconSvg(p.category, strokeWidth).replace(/"/g, '&quot;');
+  return `<img src="${src}" alt="${p.name}" loading="lazy" onerror="this.outerHTML='${fallback.replace(/'/g, "\\'")}'">`;
+}
+
+
+function esc(s){ return String(s).replace(/'/g, "\\'"); }
+
+function productCard(p){
+  return `<div class="card" data-cat="${p.category}">
+    <a href="product.html?slug=${p.slug}" class="card-media">
+      <span class="card-cat-tag">${CAT_NAME[p.category]}</span>
+      ${mediaImg(p, 1.3)}
+    </a>
+    <div class="card-body">
+      <div class="card-brand">${p.brand}</div>
+      <div class="card-title"><a href="product.html?slug=${p.slug}">${p.name}</a></div>
+      <div class="card-spec">${p.specs[0][0]}: ${p.specs[0][1]}</div>
+      <div class="card-foot">
+        <div class="card-price mono">${formatPrice(p.price)}</div>
+        <button class="add-btn" onclick="cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}',1)" aria-label="В корзину">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderProduct(){
+  const slug = new URLSearchParams(location.search).get('slug');
+  const p = PRODUCTS.find(x => x.slug === slug);
+  const root = document.getElementById('productRoot');
+
+  if(!p){
+    root.innerHTML = `<section class="section"><div class="container" style="text-align:center; padding:60px 0;">
+      <h2 style="margin-bottom:12px;">Товар не найден</h2>
+      <p style="color:var(--ink-soft); margin-bottom:24px;">Возможно, ссылка устарела или товар снят с продажи.</p>
+      <a href="catalog.html" class="btn btn-primary">Перейти в каталог</a>
+    </div></section>`;
+    return;
+  }
+
+  document.title = p.name + ' — ПРОГАЗ';
+  document.querySelector('meta[name="description"]').setAttribute('content', p.name + ' — ' + formatPrice(p.price) + '. ' + p.desc.slice(0,120));
+
+  const specsRows = p.specs.map(s => `<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('');
+  const related = PRODUCTS.filter(x => x.category === p.category && x.slug !== p.slug).slice(0,4);
+  const relatedHtml = related.length ? `<section class="section related">
+    <div class="container">
+      <div class="section-head"><h2>Похожие товары</h2></div>
+      <div class="grid">${related.map(productCard).join('')}</div>
+    </div>
+  </section>` : '';
+
+  root.innerHTML = `
+  <div class="container crumbs">
+    <a href="index.html">Главная</a><span>/</span>
+    <a href="catalog.html">Каталог</a><span>/</span>
+    <a href="catalog.html?cat=${p.category}">${CAT_NAME[p.category]}</a><span>/</span>
+    ${p.name}
+  </div>
+  <section class="container product-detail">
+    <div class="product-gallery">
+      <div class="product-media" id="mainMedia">${mediaImg(p, 1)}</div>
+      ${galleryThumbs(p)}
+    </div>
+    <div class="product-info">
+      <div class="card-brand">${p.brand}</div>
+      <h1>${p.name}</h1>
+      <div class="product-price-row">
+        <div class="product-price mono">${formatPrice(p.price)}</div>
+        <span class="stock-badge"><span class="dot"></span>В наличии</span>
+      </div>
+      <p class="product-desc">${p.desc}</p>
+      <table class="spec-table">${specsRows}</table>
+      <div class="qty-row">
+        <div class="qty-control">
+          <button onclick="stepQty(-1)">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <input type="number" id="qty" value="1" min="1">
+          <button onclick="stepQty(1)">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+        <button class="btn btn-primary" onclick="cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}', parseInt(document.getElementById('qty').value)||1)">
+          Добавить в корзину
+        </button>
+      </div>
+    </div>
+  </section>
+  ${relatedHtml}`;
+}
+
+// Миниатюры показываем только если у товара реально несколько фото.
+function galleryThumbs(p){
+  if(!p.images || p.images.length < 2) return '';
+  const thumbs = p.images.map((src, i) =>
+    `<button class="product-thumb${i === 0 ? ' active' : ''}" onclick="switchImage('${src}', this)">
+       <img src="${src}" alt="${p.name} — фото ${i + 1}" loading="lazy">
+     </button>`
+  ).join('');
+  return `<div class="product-thumbs">${thumbs}</div>`;
+}
+
+function switchImage(src, btn){
+  document.getElementById('mainMedia').innerHTML =
+    `<img src="${src}" alt="Фото товара">`;
+  document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function stepQty(delta){
+  const input = document.getElementById('qty');
+  input.value = Math.max(1, (parseInt(input.value) || 1) + delta);
+}
+
+renderProduct();
+</script>
+</body>
+</html>
