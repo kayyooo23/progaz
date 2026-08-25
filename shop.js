@@ -43,7 +43,6 @@ function productCard(p){
       <div class="card-brand">${p.brand}</div>
       <h3 class="card-title"><a href="product.html?slug=${p.slug}">${p.name}</a></h3>
       <div class="card-spec">${p.specs[0][0]}: ${p.specs[0][1]}</div>
-      <div class="card-spec">${inventoryBadge(p.slug)}</div>
       <div class="card-foot">
         <span class="card-price">${formatPrice(p.price)}</span>
         <button class="add-btn" onclick="cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}',1)" aria-label="Добавить в корзину">
@@ -61,9 +60,15 @@ function renderFeatured(){
 }
 
 /* ---------------- Каталог ---------------- */
-function brandList(){
+
+/* Производители показываются только для выбранных типов оборудования.
+   Пока тип не выбран, список брендов не нужен: человеку, которому нужен
+   котёл, незачем видеть производителей плит. */
+function brandsFor(cats){
   const map = new Map();
-  PRODUCTS.forEach(p => map.set(p.brand, (map.get(p.brand) || 0) + 1));
+  PRODUCTS
+    .filter(p => cats.length === 0 || cats.includes(p.category))
+    .forEach(p => map.set(p.brand, (map.get(p.brand) || 0) + 1));
   return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
 }
 function categoryList(){
@@ -74,15 +79,10 @@ function categoryList(){
 
 function initCatalog(){
   const catBox = document.getElementById('fCategories');
-  const brandBox = document.getElementById('fBrands');
   if(!catBox) return;
 
   catBox.innerHTML = categoryList().map(([code, name, n]) =>
-    `<label class="fopt"><input type="checkbox" name="cat" value="${code}" onchange="applyFilters()">${name}<span class="cnt">${n}</span></label>`
-  ).join('');
-
-  brandBox.innerHTML = brandList().map(([brand, n]) =>
-    `<label class="fopt"><input type="checkbox" name="brand" value="${escAttr(brand)}" onchange="applyFilters()">${brand}<span class="cnt">${n}</span></label>`
+    `<label class="fopt"><input type="checkbox" name="cat" value="${code}" onchange="onCategoryChange()">${name}<span class="cnt">${n}</span></label>`
   ).join('');
 
   // Ссылки вида catalog.html?cat=kotly из подвала
@@ -91,7 +91,32 @@ function initCatalog(){
     const box = catBox.querySelector(`input[value="${initial}"]`);
     if(box) box.checked = true;
   }
+  renderBrandFilter();
   applyFilters();
+}
+
+/* При смене типа перерисовываем список брендов и сбрасываем те,
+   которых в новом наборе типов уже нет. */
+function onCategoryChange(){
+  renderBrandFilter();
+  applyFilters();
+}
+
+function renderBrandFilter(){
+  const box = document.getElementById('fBrands');
+  if(!box) return;
+  const cats = checkedValues('cat');
+  const previously = new Set(checkedValues('brand'));
+
+  if(cats.length === 0){
+    box.innerHTML = `<p class="fhint">Сначала выберите тип оборудования — покажем подходящих производителей.</p>`;
+    return;
+  }
+
+  box.innerHTML = brandsFor(cats).map(([brand, n]) => {
+    const checked = previously.has(brand) ? ' checked' : '';
+    return `<label class="fopt"><input type="checkbox" name="brand" value="${escAttr(brand)}"${checked} onchange="applyFilters()">${brand}<span class="cnt">${n}</span></label>`;
+  }).join('');
 }
 
 function checkedValues(name){
@@ -140,7 +165,10 @@ function renderChips(cats, brands, min, max){
 
 function uncheck(name, value){
   const el = document.querySelector(`input[name="${name}"][value="${value}"]`);
-  if(el){ el.checked = false; applyFilters(); }
+  if(!el) return;
+  el.checked = false;
+  if(name === 'cat') renderBrandFilter();
+  applyFilters();
 }
 function clearPrice(){
   document.getElementById('priceMin').value = '';
@@ -149,6 +177,7 @@ function clearPrice(){
 }
 function resetFilters(){
   document.querySelectorAll('.filters input[type="checkbox"]').forEach(i => i.checked = false);
+  renderBrandFilter();
   clearPrice();
 }
 
@@ -213,7 +242,7 @@ function renderProduct(){
       <span class="product-art">Артикул ${articleOf(p)}</span>
       <div class="product-price-row" style="margin-top:16px;">
         <span class="product-price">${formatPrice(p.price)}</span>
-        ${inventoryBadge(p.slug)}
+        <span class="stock-badge"><span class="dot"></span>В наличии</span>
       </div>
       <p class="product-desc">${p.desc}</p>
       <table class="spec-table">
