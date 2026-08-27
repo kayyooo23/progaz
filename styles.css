@@ -304,7 +304,7 @@ h1,h2,h3,.cond{
 .chip button:hover{color:var(--graphite);}
 
 /* ---------- Сетка и карточка ---------- */
-.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start;}
 .grid-4{grid-template-columns:repeat(4,1fr);}
 @media (max-width:1100px){.grid-4{grid-template-columns:repeat(3,1fr);}}
 @media (max-width:860px){.grid,.grid-4{grid-template-columns:repeat(2,1fr);}}
