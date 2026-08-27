@@ -149,6 +149,41 @@ function applyFilters(){
     list.length ? `Показано <b>${list.length}</b> из ${PRODUCTS.length}` : 'Ничего не найдено';
 
   renderChips(cats, brands, min, max);
+  updateCatalogMeta(cats, list.length);
+}
+
+/* Когда выбрана одна категория, страница становится по сути отдельной:
+   «Газовые котлы в Перми». Меняем заголовок и h1, иначе в поиске все
+   варианты фильтра выглядят одинаково. */
+function updateCatalogMeta(cats, found){
+  const h1 = document.querySelector('.page-head h1');
+  const sub = document.querySelector('.page-head .sub');
+
+  if(cats.length === 1){
+    const name = CAT_NAME[cats[0]];
+    if(h1) h1.textContent = name + ' в Перми';
+    if(sub) sub.textContent = `${found} ${plural(found, 'позиция', 'позиции', 'позиций')} в наличии. Доставка по Перми в день покупки.`;
+    setMeta({
+      title: `${name} — купить в Перми | ПРОГАЗ`,
+      desc: `${name} в Перми: ${found} ${plural(found, 'модель', 'модели', 'моделей')} в наличии. Отбор по производителю и цене, доставка в день покупки.`,
+      url: location.origin + location.pathname + '?cat=' + cats[0]
+    });
+  } else {
+    if(h1) h1.textContent = 'Каталог оборудования';
+    if(sub) sub.textContent = 'Отберите по типу, производителю и цене — или позвоните, подскажем.';
+    setMeta({
+      title: 'Каталог газового оборудования — купить в Перми | ПРОГАЗ',
+      desc: 'Газовые котлы, колонки, плиты и счётчики в Перми: 32 позиции в наличии. Отбор по типу, производителю и цене.',
+      url: location.origin + location.pathname
+    });
+  }
+}
+
+function plural(n, one, few, many){
+  const n10 = n % 10, n100 = n % 100;
+  if(n10 === 1 && n100 !== 11) return one;
+  if(n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return few;
+  return many;
 }
 
 function renderChips(cats, brands, min, max){
@@ -179,6 +214,32 @@ function resetFilters(){
   document.querySelectorAll('.filters input[type="checkbox"]').forEach(i => i.checked = false);
   renderBrandFilter();
   clearPrice();
+}
+
+/* Обновляет заголовок и разметку страницы на лету — для карточек товара
+   и для каталога с выбранной категорией. Без этого все 32 товара выглядели бы
+   в поиске одинаково. */
+function setMeta({title, desc, url, image}){
+  if(title){
+    document.title = title;
+    setTag('meta[property="og:title"]', 'content', title);
+  }
+  if(desc){
+    setTag('meta[name="description"]', 'content', desc);
+    setTag('meta[property="og:description"]', 'content', desc);
+  }
+  if(url){
+    setTag('link[rel="canonical"]', 'href', url);
+    setTag('meta[property="og:url"]', 'content', url);
+  }
+  if(image){
+    const abs = image.startsWith('http') ? image : location.origin + location.pathname.replace(/[^/]+$/, '') + image;
+    setTag('meta[property="og:image"]', 'content', abs);
+  }
+}
+function setTag(selector, attr, value){
+  const el = document.querySelector(selector);
+  if(el) el.setAttribute(attr, value);
 }
 
 /* ---------------- Страница товара ---------------- */
@@ -213,9 +274,14 @@ function renderProduct(){
     return;
   }
 
-  document.title = p.name + ' — ПРОГАЗ';
-  const meta = document.querySelector('meta[name="description"]');
-  if(meta) meta.setAttribute('content', `${p.name} — ${formatPrice(p.price)}. ${p.desc.slice(0, 110)}`);
+  // Заголовок под конкретный товар: люди ищут «купить ... в Перми»,
+  // поэтому город и слово «купить» должны быть в заголовке.
+  setMeta({
+    title: `${p.name} — купить в Перми, ${formatPrice(p.price)} | ПРОГАЗ`,
+    desc: `${p.name} — ${formatPrice(p.price)}. ${p.desc.slice(0, 100)} Доставка по Перми в день покупки.`,
+    url: location.href,
+    image: productImages(p)[0]
+  });
 
   const rows = p.specs.map(s => `<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('');
   const related = PRODUCTS.filter(x => x.category === p.category && x.slug !== p.slug).slice(0, 4);
