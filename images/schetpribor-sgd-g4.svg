@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Счетчик газа объемный диафрагменный СГД-G-4">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2F5FE8"/>
+      <stop offset="100%" stop-color="#E8622C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="800" fill="#FFFFFF"/>
+  <rect x="24" y="24" width="752" height="752" rx="28" fill="#F5F7FA"/>
+
+  <!-- фирменная полоса сверху -->
+  <rect x="24" y="24" width="752" height="6" rx="3" fill="url(#flame)"/>
+
+  <!-- контур товара -->
+  <g transform="translate(400 295) scale(11.5) translate(-12 -12)"
+     fill="none" stroke="#B4BEC9" stroke-width="1.1"
+     stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="13" r="8"></circle><line x1="12" y1="13" x2="15" y2="9"></line><line x1="9" y1="2" x2="15" y2="2"></line>
+  </g>
+
+  <!-- категория -->
+  <text x="400" y="566" text-anchor="middle"
+        font-family="'IBM Plex Mono', monospace" font-size="19"
+        letter-spacing="2.4" fill="#2F5FE8">СЧЁТЧИКИ</text>
+
+  <!-- название -->
+  <text x="400" y="612" text-anchor="middle"
+        font-family="'IBM Plex Sans', Arial, sans-serif" font-size="29"
+        font-weight="700" fill="#101820"><tspan x="400" dy="0">Счетчик газа объемный</tspan><tspan x="400" dy="34">диафрагменный СГД-G-4</tspan></text>
+
+  <!-- бренд -->
+  <text x="400" y="690" text-anchor="middle"
+        font-family="'IBM Plex Sans', Arial, sans-serif" font-size="21"
+        fill="#5B6B7C">Счетприбор</text>
+
+  <!-- пометка, что фото временное -->
+  <text x="400" y="752" text-anchor="middle"
+        font-family="'IBM Plex Mono', monospace" font-size="15"
+        letter-spacing="1.2" fill="#B4BEC9">ФОТО ГОТОВИТСЯ</text>
+</svg>
