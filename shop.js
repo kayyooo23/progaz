@@ -376,25 +376,184 @@ function renderCartPage(){
 function initCheckout(){
   const sel = document.getElementById('deliveryMethod');
   if(!sel) return;
-  sel.addEventListener('change', e => {
-    document.getElementById('addressGroup').style.display = e.target.value === 'delivery' ? 'block' : 'none';
+
+  sel.addEventListener('change', toggleAddress);
+  toggleAddress();
+
+  // Дату раньше сегодняшней выбрать нельзя, по умолчанию — завтра
+  const date = document.getElementById('coDate');
+  if(date){
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 86400000);
+    date.min = today.toISOString().slice(0, 10);
+    date.value = tomorrow.toISOString().slice(0, 10);
+  }
+
+  // Ошибка гаснет, как только человек начал исправлять поле
+  ['coFio','coPhone','coAddress','coDate','coConsent'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', () => clearError(id));
+    if(el && el.type === 'checkbox') el.addEventListener('change', () => clearError(id));
   });
+
   renderCheckout();
 }
+
+function toggleAddress(){
+  const isDelivery = document.getElementById('deliveryMethod').value === 'delivery';
+  document.getElementById('addressGroup').style.display = isDelivery ? '' : 'none';
+  if(!isDelivery) clearError('coAddress');
+}
+
 function renderCheckout(){
   const box = document.getElementById('checkoutItems');
   if(!box) return;
   const items = cartGet();
-  box.innerHTML = items.map(i =>
-    `<div class="summary-row"><span>${i.name} × ${i.qty}</span><span class="mono">${formatPrice(i.price * i.qty)}</span></div>`
-  ).join('') || '<div class="summary-row"><span>Корзина пуста</span></div>';
+  box.innerHTML = items.length
+    ? items.map(i => `<div class="summary-row"><span>${i.name} × ${i.qty}</span><span class="mono">${formatPrice(i.price * i.qty)}</span></div>`).join('')
+    : '<div class="summary-row"><span>Корзина пуста</span></div>';
   document.getElementById('checkoutTotal').textContent = formatPrice(cartTotal());
 }
-function submitOrder(){
+
+/* ---------- Проверка полей ---------- */
+
+function showError(id, message){
+  const field = document.getElementById(id);
+  const box = document.getElementById('err-' + id);
+  if(field) field.classList.add('is-invalid');
+  if(box) box.textContent = message;
+}
+function clearError(id){
+  const field = document.getElementById(id);
+  const box = document.getElementById('err-' + id);
+  if(field) field.classList.remove('is-invalid');
+  if(box) box.textContent = '';
+}
+
+/* В телефоне считаем только цифры: человек может ввести со скобками,
+   пробелами или через 8 — всё это допустимо. */
+function digitsOf(value){
+  return (value || '').replace(/\D/g, '');
+}
+
+function validateOrder(){
+  let firstBad = null;
+  const fail = (id, msg) => { showError(id, msg); if(!firstBad) firstBad = id; };
+
+  const fio = document.getElementById('coFio').value.trim();
+  if(fio.length < 5 || fio.split(/\s+/).length < 2){
+    fail('coFio', 'Укажите фамилию и имя полностью');
+  }
+
+  const phone = digitsOf(document.getElementById('coPhone').value);
+  if(phone.length < 10){
+    fail('coPhone', 'Телефон нужен, чтобы подтвердить заказ');
+  } else if(phone.length > 11){
+    fail('coPhone', 'Проверьте номер — кажется, лишние цифры');
+  }
+
+  if(document.getElementById('deliveryMethod').value === 'delivery'){
+    const addr = document.getElementById('coAddress').value.trim();
+    if(addr.length < 8) fail('coAddress', 'Укажите улицу, дом и квартиру');
+  }
+
+  const dateEl = document.getElementById('coDate');
+  if(!dateEl.value){
+    fail('coDate', 'Выберите дату');
+  } else {
+    const chosen = new Date(dateEl.value);
+    const today = new Date(); today.setHours(0,0,0,0);
+    if(chosen < today) fail('coDate', 'Дата уже прошла');
+  }
+
+  if(!document.getElementById('coConsent').checked){
+    fail('coConsent', 'Без согласия мы не можем принять заявку');
+  }
+
+  if(firstBad){
+    const el = document.getElementById(firstBad);
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    if(el.focus) el.focus({preventScroll:true});
+    return false;
+  }
+  return true;
+}
+
+/* ---------- Отправка ---------- */
+
+function collectOrder(){
+  const method = document.getElementById('deliveryMethod').value;
+  const timeLabels = {any:'любое', morning:'первая половина дня', evening:'вторая половина дня'};
+  return {
+    создана: new Date().toISOString(),
+    покупатель: {
+      фио: document.getElementById('coFio').value.trim(),
+      телефон: document.getElementById('coPhone').value.trim()
+    },
+    доставка: {
+      способ: method === 'delivery' ? 'доставка по Перми' : 'самовывоз',
+      адрес: method === 'delivery' ? document.getElementById('coAddress').value.trim() : 'ул. Волховская, 38',
+      дата: document.getElementById('coDate').value,
+      время: timeLabels[document.getElementById('coTime').value]
+    },
+    комментарий: document.getElementById('coNote').value.trim(),
+    товары: cartGet().map(i => ({
+      артикул: (PRODUCTS.find(p => p.slug === i.slug) || {}).article || i.slug,
+      название: i.name, количество: i.qty, цена: i.price, сумма: i.price * i.qty
+    })),
+    итого: cartTotal(),
+    согласие_на_обработку: true
+  };
+}
+
+/* ЕДИНСТВЕННОЕ МЕСТО, куда подключается доставка заявки.
+   Пока заявка никуда не уходит — функция возвращает ошибку намеренно,
+   чтобы форма не делала вид, что заказ принят.
+   Когда решим, куда слать (почта, Telegram, сервис форм), меняем только
+   эту функцию: остальной код трогать не придётся. */
+async function sendOrder(order){
+  // Здесь появится отправка. Например:
+  // const r = await fetch(ORDER_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(order)});
+  // return r.ok;
+  console.log('Заявка сформирована, но отправка не подключена:', order);
+  return false;
+}
+
+async function submitOrder(){
   if(cartCount() === 0){ showToast('Сначала добавьте товар в корзину'); return; }
-  const phone = document.getElementById('coPhone').value.trim();
-  if(phone.length < 6){ showToast('Укажите телефон — перезвоним для подтверждения'); return; }
-  showToast('Заказ отправлен. Перезвоним для подтверждения');
-  cartClear();
-  setTimeout(() => window.location.href = 'index.html', 1900);
+  if(!validateOrder()) return;
+
+  const btn = document.querySelector('.cart-summary .btn-gas');
+  const order = collectOrder();
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+
+  let ok = false;
+  try { ok = await sendOrder(order); }
+  catch(e){ ok = false; }
+
+  btn.disabled = false;
+  btn.textContent = 'Отправить заявку';
+
+  if(ok){
+    cartClear();
+    showOrderSuccess(order);
+  } else {
+    showToast('Не удалось отправить. Позвоните: +7 (908) 264-01-58');
+  }
+}
+
+function showOrderSuccess(order){
+  const root = document.querySelector('.cart-layout');
+  if(!root) return;
+  root.outerHTML = `
+    <div class="container order-done">
+      <div class="order-done-mark">✓</div>
+      <h2>Заявка принята</h2>
+      <p>Спасибо, ${order.покупатель.фио.split(' ')[1] || order.покупатель.фио}. Мы перезвоним на
+      <b>${order.покупатель.телефон}</b>, чтобы подтвердить наличие и время доставки.</p>
+      <p class="order-done-sum">Сумма заявки: <span class="mono">${formatPrice(order.итого)}</span></p>
+      <a href="catalog.html" class="btn btn-ghost">Вернуться в каталог</a>
+    </div>`;
 }

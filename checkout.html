@@ -76,26 +76,82 @@
 <div class="container page-head"><h1>Оформление заказа</h1></div>
 <section class="section-tight">
   <div class="container cart-layout">
-    <div>
-      <div class="form-group"><label for="coName">Имя</label><input type="text" id="coName" placeholder="Как к вам обращаться"></div>
-      <div class="form-group"><label for="coPhone">Телефон</label><input type="tel" id="coPhone" placeholder="+7 "></div>
-      <div class="form-group">
-        <label for="deliveryMethod">Как получите заказ</label>
-        <select id="deliveryMethod">
-          <option value="pickup">Заберу сам — ул. Волховская, 38</option>
-          <option value="delivery">Доставка по Перми</option>
-        </select>
+    <form id="orderForm" novalidate>
+
+      <fieldset class="form-block">
+        <legend>Кто получает заказ</legend>
+
+        <div class="form-group">
+          <label for="coFio">Фамилия, имя и отчество <span class="req">*</span></label>
+          <input type="text" id="coFio" name="fio" autocomplete="name" placeholder="Иванов Иван Иванович">
+          <span class="form-error" id="err-coFio"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="coPhone">Телефон <span class="req">*</span></label>
+          <input type="tel" id="coPhone" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__">
+          <span class="form-hint">Позвоним, чтобы подтвердить заказ и уточнить время</span>
+          <span class="form-error" id="err-coPhone"></span>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-block">
+        <legend>Доставка</legend>
+
+        <div class="form-group">
+          <label for="deliveryMethod">Как получите заказ</label>
+          <select id="deliveryMethod" name="delivery">
+            <option value="delivery">Доставка по Перми</option>
+            <option value="pickup">Заберу сам — ул. Волховская, 38</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="addressGroup">
+          <label for="coAddress">Адрес доставки <span class="req">*</span></label>
+          <input type="text" id="coAddress" name="address" autocomplete="street-address" placeholder="Улица, дом, квартира, этаж">
+          <span class="form-error" id="err-coAddress"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="coDate">Желаемая дата <span class="req">*</span></label>
+            <input type="date" id="coDate" name="date">
+            <span class="form-error" id="err-coDate"></span>
+          </div>
+          <div class="form-group">
+            <label for="coTime">Удобное время</label>
+            <select id="coTime" name="time">
+              <option value="any">Любое</option>
+              <option value="morning">Первая половина дня</option>
+              <option value="evening">Вторая половина дня</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="coNote">Комментарий</label>
+          <textarea id="coNote" name="note" rows="3" placeholder="Нужен монтаж, есть лифт, позвонить заранее"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="pay-note">Оплата наличными или картой при получении.</div>
+
+      <div class="consent">
+        <label class="consent-check">
+          <input type="checkbox" id="coConsent" name="consent">
+          <span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомлен
+          с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>. <span class="req">*</span></span>
+        </label>
+        <span class="form-error" id="err-coConsent"></span>
       </div>
-      <div class="form-group" id="addressGroup" style="display:none;">
-        <label for="coAddress">Адрес доставки</label><input type="text" id="coAddress" placeholder="Улица, дом, квартира">
-      </div>
-      <div class="form-group"><label for="coNote">Комментарий</label><textarea id="coNote" rows="3" placeholder="Нужен монтаж, удобное время и прочее"></textarea></div>
-      <div class="pay-note">Оплата наличными или картой при получении. Онлайн-оплату подключим отдельно.</div>
-    </div>
+
+    </form>
+
     <div class="cart-summary">
       <div id="checkoutItems"></div>
       <div class="summary-row total"><span>Итого</span><span class="mono" id="checkoutTotal">0 ₽</span></div>
-      <button class="btn btn-gas btn-block" style="margin-top:14px;" onclick="submitOrder()">Отправить заказ</button>
+      <button type="button" class="btn btn-gas btn-block" style="margin-top:14px;" onclick="submitOrder()">Отправить заявку</button>
+      <p class="summary-note">Это заявка, а не оплата. Мы перезвоним и подтвердим наличие, сумму и время доставки.</p>
     </div>
   </div>
 </section>
@@ -124,6 +180,7 @@
           <li><a href="about.html">О магазине</a></li>
           <li><a href="faq.html">Вопросы и ответы</a></li>
           <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="privacy.html">Политика конфиденциальности</a></li>
         </ul>
       </div>
       <div>
