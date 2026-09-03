@@ -255,6 +255,21 @@ function switchImage(src, btn){
   document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
 }
+function toggleSpecs(btn, total){
+  const table = btn.previousElementSibling;
+  const extra = table.querySelector('.spec-extra');
+  const caption = table.querySelector('caption');
+  const isHidden = extra.hasAttribute('hidden');
+  if(isHidden){
+    extra.removeAttribute('hidden');
+    caption.textContent = 'Характеристики';
+    btn.textContent = 'Скрыть характеристики';
+  } else {
+    extra.setAttribute('hidden', '');
+    caption.textContent = 'Краткие характеристики';
+    btn.textContent = `Показать все характеристики (${total})`;
+  }
+}
 function stepQty(delta){
   const input = document.getElementById('qty');
   input.value = Math.max(1, (parseInt(input.value) || 1) + delta);
@@ -283,7 +298,11 @@ function renderProduct(){
     image: productImages(p)[0]
   });
 
-  const rows = p.specs.map(s => `<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('');
+  const SHORT_SPECS_COUNT = 5;
+  const row = s => `<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`;
+  const shortRows = p.specs.slice(0, SHORT_SPECS_COUNT).map(row).join('');
+  const extraRows = p.specs.slice(SHORT_SPECS_COUNT).map(row).join('');
+  const hasMoreSpecs = p.specs.length > SHORT_SPECS_COUNT;
   const related = PRODUCTS.filter(x => x.category === p.category && x.slug !== p.slug).slice(0, 4);
   const relatedBlock = related.length ? `<section class="section">
     <div class="container">
@@ -312,9 +331,11 @@ function renderProduct(){
       </div>
       <p class="product-desc">${p.desc}</p>
       <table class="spec-table">
-        <caption>Характеристики</caption>
-        <tbody>${rows}</tbody>
+        <caption>${hasMoreSpecs ? 'Краткие характеристики' : 'Характеристики'}</caption>
+        <tbody>${shortRows}</tbody>
+        ${hasMoreSpecs ? `<tbody class="spec-extra" hidden>${extraRows}</tbody>` : ''}
       </table>
+      ${hasMoreSpecs ? `<button type="button" class="spec-toggle" onclick="toggleSpecs(this,${p.specs.length})">Показать все характеристики (${p.specs.length})</button>` : ''}
       <div class="qty-row">
         <div class="qty-control">
           <button onclick="stepQty(-1)" aria-label="Меньше">−</button>

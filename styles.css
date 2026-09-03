@@ -414,6 +414,12 @@ h1,h2,h3,.cond{
 .spec-table tr:last-child td{border-bottom:none;}
 .spec-table td:first-child{color:var(--steel-500); width:52%; border-right:1px solid var(--line);}
 .spec-table td:last-child{font-family:'JetBrains Mono',monospace; font-weight:600; font-size:13px;}
+.spec-toggle{
+  display:block; width:100%; text-align:center; margin:-14px 0 24px;
+  padding:10px 12px; background:var(--panel-dim); border:1px solid var(--line); border-top:none;
+  border-radius:0 0 var(--r-sm) var(--r-sm); font-size:13px; font-weight:600; color:var(--gas-deep);
+}
+.spec-toggle:hover{background:var(--line);}
 
 .qty-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
 .qty-control{display:flex; align-items:center; border:1.5px solid var(--line); border-radius:var(--r-sm); background:var(--panel);}
