@@ -438,19 +438,47 @@ h1,h2,h3,.cond{
 @media (max-width:900px){.info-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:520px){.info-grid{grid-template-columns:1fr;}}
 
-.brand-strip{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
-.brand-chip{
-  padding:7px 14px; background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--r-sm); font-family:'JetBrains Mono',monospace;
-  font-size:12.5px; color:var(--steel-700);
+.brands-title{
+  margin-top:40px; margin-bottom:24px; text-align:center;
+  font-size:clamp(22px,2.8vw,30px); text-transform:uppercase; letter-spacing:0.02em;
+  position:relative; padding-bottom:14px;
+}
+.brands-title::after{
+  content:''; position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  width:56px; height:3px; background:var(--gas); border-radius:2px;
 }
 
-.about-grid{display:grid; grid-template-columns:300px 1fr; gap:46px; align-items:start;}
-.about-logo{display:flex; justify-content:center; padding:10px;}
-.about-logo img{width:100%; max-width:280px; height:auto;}
+/* ---------- Бегущая лента брендов ---------- */
+.brand-marquee{
+  overflow:hidden; width:100%;
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.brand-marquee-track{
+  display:flex; align-items:center; gap:64px; width:max-content;
+  animation:brandScroll 70s linear infinite;
+}
+.brand-marquee:hover .brand-marquee-track{animation-play-state:paused;}
+.brand-item{display:flex; align-items:center; flex-shrink:0; height:64px;}
+.brand-item img{
+  height:100%; width:auto; max-width:200px; object-fit:contain;
+  filter:grayscale(1) opacity(.55); transition:filter .18s;
+}
+.brand-item img:hover{filter:none;}
+.brand-item-text{
+  font-family:'Roboto Condensed',sans-serif; font-weight:700; font-size:30px;
+  color:var(--steel-300); letter-spacing:0.02em; white-space:nowrap; transition:color .18s;
+}
+.brand-item-text:hover{color:var(--steel-700);}
+@keyframes brandScroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+@media (prefers-reduced-motion:reduce){.brand-marquee-track{animation:none;}}
+
+.about-grid{display:grid; grid-template-columns:160px 1fr; gap:36px; align-items:start; margin-bottom:8px;}
+.about-logo{display:flex; justify-content:center; align-items:flex-start; padding:10px;}
+.about-logo img{width:100%; max-width:130px; height:auto;}
 @media (max-width:760px){
   .about-grid{grid-template-columns:1fr;}
-  .about-logo{max-width:260px; margin:0 auto;}
+  .about-logo{max-width:150px; margin:0 auto;}
 }
 .prose{max-width:720px;}
 .prose p{color:var(--steel-700); font-size:15px; line-height:1.7; margin-bottom:14px;}
