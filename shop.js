@@ -243,6 +243,11 @@ function setTag(selector, attr, value){
 }
 
 /* ---------------- Страница товара ---------------- */
+function galleryArrows(p){
+  if(!p.images || p.images.length < 2) return '';
+  return `<button class="gallery-arrow gallery-arrow-prev" onclick="stepImage(-1)" aria-label="Предыдущее фото">&#8249;</button>
+    <button class="gallery-arrow gallery-arrow-next" onclick="stepImage(1)" aria-label="Следующее фото">&#8250;</button>`;
+}
 function galleryThumbs(p){
   if(!p.images || p.images.length < 2) return '';
   return `<div class="product-thumbs">${p.images.map((src, i) =>
@@ -252,8 +257,18 @@ function galleryThumbs(p){
 }
 function switchImage(src, btn){
   document.getElementById('mainMedia').innerHTML = `<img src="${src}" alt="Фото товара">`;
-  document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+  const thumbs = document.querySelectorAll('.product-thumb');
+  thumbs.forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
+}
+function stepImage(delta){
+  const thumbs = Array.from(document.querySelectorAll('.product-thumb'));
+  if(!thumbs.length) return;
+  let idx = thumbs.findIndex(t => t.classList.contains('active'));
+  idx = (idx + delta + thumbs.length) % thumbs.length;
+  const btn = thumbs[idx];
+  const src = btn.querySelector('img').getAttribute('src');
+  switchImage(src, btn);
 }
 function toggleSpecs(btn, total){
   const table = btn.previousElementSibling;
@@ -318,7 +333,10 @@ function renderProduct(){
   </div>
   <div class="container product-detail">
     <div class="product-gallery">
-      <div class="product-media" id="mainMedia">${mediaImg(p, 1)}</div>
+      <div class="product-media-wrap">
+        <div class="product-media" id="mainMedia">${mediaImg(p, 1)}</div>
+        ${galleryArrows(p)}
+      </div>
       ${galleryThumbs(p)}
     </div>
     <div class="product-info">

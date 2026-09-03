@@ -328,7 +328,7 @@ h1,h2,h3,.cond{
 }
 .card:hover{border-color:var(--steel-300); transform:translateY(-1px);}
 .card-media{
-  aspect-ratio:1/1; background:var(--paper); position:relative; overflow:hidden; min-height:0;
+  aspect-ratio:4/5; background:var(--paper); position:relative; overflow:hidden; min-height:0;
   display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--line);
 }
 .card-media img{width:100%; height:100%; object-fit:contain; padding:16px; box-sizing:border-box;}
@@ -373,11 +373,22 @@ h1,h2,h3,.cond{
 /* ---------- Страница товара ---------- */
 .product-detail{display:grid; grid-template-columns:1fr 1fr; gap:42px; padding:8px 0;}
 .product-media{
-  aspect-ratio:1/1; background:var(--paper); border:1px solid var(--line);
+  aspect-ratio:4/5; background:var(--paper); border:1px solid var(--line);
   border-radius:var(--r); display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .product-media img{width:100%; height:100%; object-fit:contain; padding:38px; box-sizing:border-box;}
 .product-media svg{width:42%; height:42%; stroke:var(--steel-300); fill:none; stroke-width:1;}
+.product-media-wrap{position:relative;}
+.gallery-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+  background:rgba(255,255,255,0.85); color:var(--graphite); font-size:22px; line-height:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background 0.15s, transform 0.15s;
+}
+.gallery-arrow:hover{background:#fff; transform:translateY(-50%) scale(1.06);}
+.gallery-arrow-prev{left:12px;}
+.gallery-arrow-next{right:12px;}
 .product-gallery{display:flex; flex-direction:column; gap:11px;}
 .product-thumbs{display:flex; gap:9px; flex-wrap:wrap;}
 .product-thumb{
