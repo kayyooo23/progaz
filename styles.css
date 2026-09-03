@@ -614,6 +614,27 @@ h1,h2,h3,.cond{
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 .toast svg{width:15px; height:15px; stroke:var(--gas); fill:none; stroke-width:2.6; flex-shrink:0;}
 
+/* ---------- Уведомление о cookie ---------- */
+.cookie-banner{
+  position:fixed; left:16px; bottom:16px; z-index:500; max-width:360px;
+  background:var(--graphite); color:#fff; border-radius:var(--r); padding:16px 18px;
+  display:flex; gap:12px; align-items:flex-start; box-shadow:0 12px 32px rgba(0,0,0,.28);
+  opacity:0; transform:translateY(12px); transition:opacity .25s, transform .25s;
+}
+.cookie-banner.show{opacity:1; transform:translateY(0);}
+.cookie-banner svg{width:20px; height:20px; stroke:#fff; fill:none; stroke-width:1.6; flex-shrink:0; margin-top:1px;}
+.cookie-banner-body{flex:1; min-width:0;}
+.cookie-banner p{margin:0; font-size:13.5px; line-height:1.5; color:#fff;}
+.cookie-banner a{color:var(--yellow); text-decoration:underline;}
+.cookie-banner-ok{
+  margin-top:12px; background:#fff; color:var(--graphite); border:none; border-radius:var(--r-sm);
+  padding:8px 18px; font-size:13.5px; font-weight:600; cursor:pointer; transition:opacity .15s;
+}
+.cookie-banner-ok:hover{opacity:.85;}
+@media (max-width:480px){
+  .cookie-banner{left:10px; right:10px; bottom:10px; max-width:none;}
+}
+
 /* Подсказка в блоке фильтров, когда список ещё не доступен */
 .fhint{
   font-size:12.5px; color:var(--steel-500); line-height:1.5;

@@ -596,3 +596,25 @@ function showOrderSuccess(order){
       <a href="catalog.html" class="btn btn-ghost">Вернуться в каталог</a>
     </div>`;
 }
+
+/* ---------- Уведомление о cookie ---------- */
+function initCookieBanner(){
+  if(localStorage.getItem('cookieConsent')) return;
+  const el = document.createElement('div');
+  el.className = 'cookie-banner';
+  el.innerHTML = `
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="9" cy="9" r="1"></circle><circle cx="14" cy="8" r="1"></circle><circle cx="15" cy="13" r="1"></circle><circle cx="9" cy="15" r="1"></circle></svg>
+    <div class="cookie-banner-body">
+      <p>На сайте применяются <a href="cookies.html">cookie</a>
+      и <a href="cookies.html#recommend">рекомендательные технологии</a></p>
+      <button class="cookie-banner-ok" type="button">Хорошо</button>
+    </div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  el.querySelector('.cookie-banner-ok').addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', '1');
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 250);
+  });
+}
+document.addEventListener('DOMContentLoaded', initCookieBanner);
