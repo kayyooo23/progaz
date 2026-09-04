@@ -257,7 +257,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Navien",
     "desc": "Настенный двухконтурный котёл на 13 кВт — до 130 м². Закрытая камера сгорания, коаксиальный дымоход через стену, дымоход в крыше не нужен. Семиступенчатая защита и самодиагностика неисправностей.",
-    "images": ["images/navien-deluxe-c13k.jpg", "images/navien-deluxe-c13k-2.jpg", "images/navien-deluxe-c13k-3.jpg", "images/navien-deluxe-c13k-4.jpg", "images/navien-deluxe-c13k-5.jpg", "images/navien-deluxe-c13k-6.jpg"],
+    "images": ["images/navien-deluxe-c13k-2.jpg", "images/navien-deluxe-c13k.jpg", "images/navien-deluxe-c13k-3.jpg", "images/navien-deluxe-c13k-4.jpg", "images/navien-deluxe-c13k-5.jpg", "images/navien-deluxe-c13k-6.jpg"],
     "specs": [
       [
         "Тип",
