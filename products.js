@@ -25,7 +25,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Нева",
     "desc": "Проточный водонагреватель на 11 л/мин. Медный теплообменник, электророзжиг, ЖК-дисплей с температурой воды. Одна ручка регулировки — проще в управлении, чем в моделях с двумя.",
-    "images": ["images/neva-4511e.jpg", "images/neva-4511e-2.jpg", "images/neva-4511e-3.jpg"],
+    "images": ["images/neva-4511e.png", "images/neva-4511e-2.png", "images/neva-4511e-3.png"],
     "specs": [
       [
         "Тип",
@@ -96,7 +96,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Нева",
     "desc": "Проточный водонагреватель на 11 л/мин с розжигом от батареек — работает при отключении электричества. Держит пониженное давление воды от 0,15 атм, что важно для верхних этажей и старых домов.",
-    "images": ["images/neva-4511.jpg", "images/neva-4511-2.jpg", "images/neva-4511-3.jpg"],
+    "images": ["images/neva-4511.png", "images/neva-4511-2.png", "images/neva-4511-3.png"],
     "specs": [
       [
         "Тип",
@@ -159,7 +159,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Лемакс",
     "desc": "Настенный двухконтурный котёл серии Prime-V: отопление и горячая вода в одном аппарате. Подходит для дома, коттеджа и небольшого коммерческого помещения.",
-    "images": ["images/lemax-prime-v10.jpg", "images/lemax-prime-v10-2.jpg", "images/lemax-prime-v10-3.jpg", "images/lemax-prime-v10-4.jpg", "images/lemax-prime-v10-5.jpg", "images/lemax-prime-v10-6.jpg"],
+    "images": ["images/lemax-prime-v10.jpg", "images/lemax-prime-v10-2.jpg", "images/lemax-prime-v10-3.jpg", "images/lemax-prime-v10-4.jpg", "images/lemax-prime-v10-5.jpg", "images/lemax-prime-v10-6.jpg", "images/lemax-prime-v10-7.jpg"],
     "specs": [
       [
         "Тип",
@@ -257,7 +257,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Navien",
     "desc": "Настенный двухконтурный котёл на 13 кВт — до 130 м². Закрытая камера сгорания, коаксиальный дымоход через стену, дымоход в крыше не нужен. Семиступенчатая защита и самодиагностика неисправностей.",
-    "images": ["images/navien-deluxe-c13k.jpg", "images/navien-deluxe-c13k-2.jpg", "images/navien-deluxe-c13k-3.jpg", "images/navien-deluxe-c13k-4.jpg", "images/navien-deluxe-c13k-5.jpg"],
+    "images": ["images/navien-deluxe-c13k.jpg", "images/navien-deluxe-c13k-2.jpg", "images/navien-deluxe-c13k-3.jpg", "images/navien-deluxe-c13k-4.jpg", "images/navien-deluxe-c13k-5.jpg", "images/navien-deluxe-c13k-6.jpg"],
     "specs": [
       [
         "Тип",
@@ -533,7 +533,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Kiturami",
     "desc": "Настенный двухконтурный котёл на 24 кВт — до 240 м². Закрытая камера сгорания, выносной пульт управления в комплекте: температуру можно задавать из комнаты, а не у котла.",
-    "images": ["images/kiturami-world-alpha-24.jpg", "images/kiturami-world-alpha-24-2.jpg", "images/kiturami-world-alpha-24-3.jpg"],
+    "images": ["images/kiturami-world-alpha-24.jpg", "images/kiturami-world-alpha-24-2.jpg", "images/kiturami-world-alpha-24-3.jpg", "images/kiturami-world-alpha-24-4.jpg"],
     "specs": [
       [
         "Тип",
@@ -604,7 +604,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Arideya",
     "desc": "Самая доступная колонка в каталоге. Мгновенный нагрев воды, подходит для квартир и домов с дымоходом.",
-    "images": ["images/arideya-jsd-20-g1.jpg", "images/arideya-jsd-20-g1-2.jpg"],
+    "images": ["images/arideya-jsd-20-g1.jpg", "images/arideya-jsd-20-g1-2.jpg", "images/arideya-jsd-20-g1-3.jpg"],
     "specs": [
       [
         "Тип",
@@ -844,7 +844,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "BAXI",
     "desc": "Итальянская колонка серии SIG-2 для бытового использования. Простая установка, стабильная подача горячей воды без перепадов температуры.",
-    "images": ["images/baxi-sig.png", "images/baxi-sig-2.png", "images/baxi-sig-3.png", "images/baxi-sig-4.png"],
+    "images": [],
     "specs": [
       [
         "Модель",
@@ -915,7 +915,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "BAXI",
     "desc": "Итальянский настенный котёл третьего поколения, 24 кВт — до 240 м². Открытая камера сгорания, поэтому нужен дымоход. Электронная плата с самодиагностикой и программированием режимов по времени.",
-    "images": ["images/baxi-luna3-240i.jpg", "images/baxi-luna3-240i-2.jpg"],
+    "images": ["images/baxi-luna3-240i.png", "images/baxi-luna3-240i-2.png", "images/baxi-luna3-240i-3.png"],
     "specs": [
       [
         "Тип",
@@ -986,7 +986,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "BAXI",
     "desc": "Одноконтурный котёл только для отопления — до 310 м². Горячую воду не греет, для неё нужен отдельный бойлер или колонка. Закрытая камера: дымоход в крыше не требуется.",
-    "images": ["images/baxi-eco-life-131f.jpg", "images/baxi-eco-life-131f-2.jpg"],
+    "images": ["images/baxi-eco-life-131f.png", "images/baxi-eco-life-131f-2.png", "images/baxi-eco-life-131f-3.png"],
     "specs": [
       [
         "Тип",
@@ -1053,7 +1053,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Конорд",
     "desc": "Напольный двухконтурный котёл на 11,6 кВт — примерно до 116 м². Заднее подключение труб: ставится на место старого АОГВ без переделки разводки и нового проекта.",
-    "images": ["images/akgv-11-6-3-konord-zad.jpg", "images/akgv-11-6-3-konord-zad-2.jpg"],
+    "images": [],
     "specs": [
       [
         "Тип",
@@ -1108,7 +1108,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Конорд",
     "desc": "Напольный одноконтурный котёл на 11,6 кВт — только отопление, примерно до 116 м². Боковое подключение труб, присоединительные размеры совпадают со старыми АОГВ.",
-    "images": ["images/konord-aogv-11-6-1-bok.jpg", "images/konord-aogv-11-6-1-bok-2.jpg"],
+    "images": [],
     "specs": [
       [
         "Тип",
@@ -1297,7 +1297,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Комбинированная плита 50 см: газовые конфорки и электрическая духовка. Средняя комплектация серии 5102 — без отделки нержавейкой.",
-    "images": ["images/gefest-pge-5102-02.jpg", "images/gefest-pge-5102-02-2.jpg", "images/gefest-pge-5102-02-3.jpg"],
+    "images": [],
     "specs": [
       [
         "Тип",
@@ -1859,7 +1859,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Navien",
     "desc": "Настенный двухконтурный котёл на 16 кВт — до 160 м². Два раздельных теплообменника: отопление и горячая вода работают независимо. Закрытая камера, компактный корпус.",
-    "images": ["images/navien-deluxe-c16k.jpg", "images/navien-deluxe-c16k-2.jpg"],
+    "images": [],
     "specs": [
       [
         "Тип",
