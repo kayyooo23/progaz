@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /cart.html
-Disallow: /checkout.html
+Disallow: /cart
+Disallow: /checkout
 
 Sitemap: https://kayyooo23.github.io/progaz/sitemap.xml

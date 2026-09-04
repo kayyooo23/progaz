@@ -37,12 +37,20 @@ http.createServer((request, response) => {
   const filePath = path.resolve(rootDir, `.${relativePath}`);
   if (!filePath.startsWith(rootDir)) return response.end('Not found');
 
-  fs.readFile(filePath, (error, data) => {
-    if (error) {
-      response.writeHead(error.code === 'ENOENT' ? 404 : 500);
-      return response.end(error.code === 'ENOENT' ? 'Not found' : 'Server error');
+  // Как на боевом сервере: если файла с таким именем нет, а есть файл
+  // с добавленным .html — отдаём его (адреса вида /catalog без расширения).
+  const candidates = path.extname(filePath) ? [filePath] : [filePath, `${filePath}.html`];
+
+  const tryNext = (i) => {
+    if (i >= candidates.length) {
+      response.writeHead(404);
+      return response.end('Not found');
     }
-    response.writeHead(200, { 'Content-Type': contentTypes[path.extname(filePath)] || 'application/octet-stream' });
-    response.end(data);
-  });
+    fs.readFile(candidates[i], (error, data) => {
+      if (error) return tryNext(i + 1);
+      response.writeHead(200, { 'Content-Type': contentTypes[path.extname(candidates[i])] || 'application/octet-stream' });
+      response.end(data);
+    });
+  };
+  tryNext(0);
 }).listen(port, () => console.log(`ПРОГАЗ: http://localhost:${port}`));

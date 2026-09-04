@@ -1,0 +1,16 @@
+# Убираем .html из адресов страниц
+RewriteEngine On
+
+RewriteCond %{HTTPS} =on
+RewriteRule ^ - [E=PROTO:https]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ - [E=PROTO:http]
+
+# Если кто-то открыл адрес с .html — переадресуем на адрес без него
+RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+RewriteRule ^ %{ENV:PROTO}://%{HTTP_HOST}/%1 [R=301,L]
+
+# Внутри сервера ищем файл со .html, если в адресе его нет
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]

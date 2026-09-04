@@ -35,13 +35,13 @@ function mediaImg(p, sw){
 
 function productCard(p){
   return `<article class="card" data-cat="${p.category}">
-    <a href="product.html?slug=${p.slug}" class="card-media" aria-label="${escAttr(p.name)}">
+    <a href="/product?slug=${p.slug}" class="card-media" aria-label="${escAttr(p.name)}">
       <span class="card-art mono">${articleOf(p)}</span>
       ${mediaImg(p, 1.2)}
     </a>
     <div class="card-body">
       <div class="card-brand">${p.brand}</div>
-      <h3 class="card-title"><a href="product.html?slug=${p.slug}">${p.name}</a></h3>
+      <h3 class="card-title"><a href="/product?slug=${p.slug}">${p.name}</a></h3>
       <div class="card-spec">${p.specs[0][0]}: ${p.specs[0][1]}</div>
       <div class="card-foot">
         <span class="card-price">${formatPrice(p.price)}</span>
@@ -300,7 +300,7 @@ function renderProduct(){
     root.innerHTML = `<div class="container" style="padding:60px 0; text-align:center;">
       <h1 style="margin-bottom:10px;">Товар не найден</h1>
       <p style="color:var(--steel-500); margin-bottom:20px;">Возможно, ссылка устарела или позиция снята с продажи.</p>
-      <a href="catalog.html" class="btn btn-gas">Перейти в каталог</a></div>`;
+      <a href="/catalog" class="btn btn-gas">Перейти в каталог</a></div>`;
     return;
   }
 
@@ -327,9 +327,9 @@ function renderProduct(){
 
   root.innerHTML = `
   <div class="container crumbs">
-    <a href="index.html">Главная</a><span>/</span>
-    <a href="catalog.html">Каталог</a><span>/</span>
-    <a href="catalog.html?cat=${p.category}">${CAT_NAME[p.category]}</a>
+    <a href="/">Главная</a><span>/</span>
+    <a href="/catalog">Каталог</a><span>/</span>
+    <a href="/catalog?cat=${p.category}">${CAT_NAME[p.category]}</a>
   </div>
   <div class="container product-detail">
     <div class="product-gallery">
@@ -383,14 +383,14 @@ function renderCartPage(){
 
   if(items.length === 0){
     root.innerHTML = `<div class="cart-empty"><p>Пока пусто. Загляните в каталог — подберём оборудование.</p>
-      <a href="catalog.html" class="btn btn-gas">Открыть каталог</a></div>`;
+      <a href="/catalog" class="btn btn-gas">Открыть каталог</a></div>`;
     return;
   }
 
   const rows = items.map(i => `
     <div class="cart-row">
       <div class="thumb">${thumbFor(i.slug)}</div>
-      <div class="name"><span class="brand">${i.brand}</span><a href="product.html?slug=${i.slug}">${i.name}</a></div>
+      <div class="name"><span class="brand">${i.brand}</span><a href="/product?slug=${i.slug}">${i.name}</a></div>
       <div class="qty-control">
         <button onclick="cartSetQty('${esc(i.slug)}', ${i.qty - 1})" aria-label="Меньше">−</button>
         <input type="number" value="${i.qty}" min="1" onchange="cartSetQty('${esc(i.slug)}', this.value)" aria-label="Количество">
@@ -406,7 +406,7 @@ function renderCartPage(){
       <div class="summary-row"><span>Товаров</span><span class="mono">${cartCount()}</span></div>
       <div class="summary-row"><span>Доставка</span><span class="mono">по Перми — бесплатно</span></div>
       <div class="summary-row total"><span>Итого</span><span class="mono">${formatPrice(cartTotal())}</span></div>
-      <a href="checkout.html" class="btn btn-gas btn-block" style="margin-top:14px;">Оформить заказ</a>
+      <a href="/checkout" class="btn btn-gas btn-block" style="margin-top:14px;">Оформить заказ</a>
     </div>
   </div>`;
 }
@@ -596,7 +596,7 @@ function showOrderSuccess(order){
       <p>Спасибо, ${order.покупатель.фио.split(' ')[1] || order.покупатель.фио}. Мы перезвоним на
       <b>${order.покупатель.телефон}</b>, чтобы подтвердить наличие и время доставки.</p>
       <p class="order-done-sum">Сумма заявки: <span class="mono">${formatPrice(order.итого)}</span></p>
-      <a href="catalog.html" class="btn btn-ghost">Вернуться в каталог</a>
+      <a href="/catalog" class="btn btn-ghost">Вернуться в каталог</a>
     </div>`;
 }
 
@@ -608,8 +608,8 @@ function initCookieBanner(){
   el.innerHTML = `
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="9" cy="9" r="1"></circle><circle cx="14" cy="8" r="1"></circle><circle cx="15" cy="13" r="1"></circle><circle cx="9" cy="15" r="1"></circle></svg>
     <div class="cookie-banner-body">
-      <p>На сайте применяются <a href="cookies.html">cookie</a>
-      и <a href="cookies.html#recommend">рекомендательные технологии</a></p>
+      <p>На сайте применяются <a href="/cookies">cookie</a>
+      и <a href="/cookies#recommend">рекомендательные технологии</a></p>
       <button class="cookie-banner-ok" type="button">Хорошо</button>
     </div>`;
   document.body.appendChild(el);
