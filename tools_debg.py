@@ -1,5 +1,5 @@
 """
-Заменяет белый/светлый фон товарных фото на цвет сайта (#E8EBEE).
+Заменяет светлый/цветной фон товарных фото на цвет сайта (#FFFFFF).
 Использование:
   python tools_debg.py <входной_файл> <выходной_файл> [thresh]
   python tools_debg.py --batch  (обработать все фото в images/, кроме images/brands/)
@@ -8,7 +8,7 @@ import os
 import sys
 from PIL import Image, ImageDraw
 
-TARGET = (232, 235, 238)  # #E8EBEE - фон сайта
+TARGET = (255, 255, 255)  # #FFFFFF - фон сайта
 THRESH = 30
 
 
