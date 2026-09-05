@@ -3,4 +3,4 @@ Allow: /
 Disallow: /cart
 Disallow: /checkout
 
-Sitemap: https://kayyooo23.github.io/progaz/sitemap.xml
+Sitemap: https://ck623906.tw1.ru/sitemap.xml
