@@ -1453,7 +1453,7 @@ const PRODUCTS = [
   },
   {
     "slug": "svkm-15u",
-    "name": "Счётчик воды СВКМ-15У",
+    "name": "Счетчик воды универсальный 1/2″ НОРМА ИС СВКМ-15У",
     "price": 650,
     "category": "schetchiki",
     "brand": "Норма",
