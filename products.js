@@ -1395,7 +1395,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Дарина",
     "desc": "Простая газовая плита 50 см с газовой духовкой. Эмалированная поверхность, крашеный корпус, белый цвет — классический вариант без лишних функций.",
-    "images": ["images/darina-1as-gm521-001w.webp", "images/darina-1as-gm521-001w-2.webp", "images/darina-1as-gm521-001w-3.webp", "images/darina-1as-gm521-001w-4.webp"],
+    "images": ["images/darina-1as-gm521-001w-4.webp", "images/darina-1as-gm521-001w-2.webp", "images/darina-1as-gm521-001w-3.webp", "images/darina-1as-gm521-001w.webp"],
     "specs": [
       [
         "Тип",
