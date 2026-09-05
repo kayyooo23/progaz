@@ -474,7 +474,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Siberia",
     "desc": "Напольный котёл на 23,2 кВт для водяного отопления дома. Спокойно переносит перепады давления в газовой и водяной магистрали — важно там, где сеть нестабильна.",
-    "images": [],
+    "images": ["images/siberia-23-2-3.png", "images/siberia-23-2.png", "images/siberia-23-2-2.png"],
     "specs": [
       [
         "Тип",
@@ -750,7 +750,7 @@ const PRODUCTS = [
     "category": "schetchiki",
     "brand": "Счетприбор",
     "desc": "Тот же счётчик G-4, но с термокорректором: пересчитывает объём газа на стандартную температуру. Нужен, когда прибор ставят на улице или в неотапливаемом помещении — иначе на морозе показания завышаются.",
-    "images": [],
+    "images": ["images/schetpribor-sgd-g4t-2.jpg", "images/schetpribor-sgd-g4t.jpg"],
     "specs": [
       [
         "Тип",
@@ -1053,7 +1053,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Конорд",
     "desc": "Напольный двухконтурный котёл на 11,6 кВт — примерно до 116 м². Заднее подключение труб: ставится на место старого АОГВ без переделки разводки и нового проекта.",
-    "images": [],
+    "images": ["images/akgv-11-6-3-konord-zad-4.jpg", "images/akgv-11-6-3-konord-zad.jpg", "images/akgv-11-6-3-konord-zad-2.jpg", "images/akgv-11-6-3-konord-zad-3.jpg"],
     "specs": [
       [
         "Тип",
@@ -1108,7 +1108,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Конорд",
     "desc": "Напольный одноконтурный котёл на 11,6 кВт — только отопление, примерно до 116 м². Боковое подключение труб, присоединительные размеры совпадают со старыми АОГВ.",
-    "images": [],
+    "images": ["images/konord-aogv-11-6-1-bok.jpg", "images/konord-aogv-11-6-1-bok-2.jpg", "images/konord-aogv-11-6-1-bok-3.png", "images/konord-aogv-11-6-1-bok-4.jpg"],
     "specs": [
       [
         "Тип",
