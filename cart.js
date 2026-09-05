@@ -99,6 +99,17 @@ function compareToggle(slug, name){
       showToast(`Можно сравнить не более ${COMPARE_MAX} товаров`);
       return;
     }
+    // Сравнивать имеет смысл только товары одного типа — иначе у них
+    // просто нет общих характеристик и таблица получается пустой.
+    if(list.length > 0 && typeof PRODUCTS !== 'undefined'){
+      const newP = PRODUCTS.find(p => p.slug === slug);
+      const firstP = PRODUCTS.find(p => p.slug === list[0]);
+      if(newP && firstP && newP.category !== firstP.category){
+        const catName = (typeof CAT_NAME !== 'undefined' && CAT_NAME[firstP.category]) || firstP.category;
+        showToast(`Можно сравнивать только товары одного типа: «${catName}»`);
+        return;
+      }
+    }
     list.push(slug);
   }
   compareSave(list);
