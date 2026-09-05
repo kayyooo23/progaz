@@ -675,7 +675,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Лемакс",
     "desc": "Напольный котёл на 17,4 кВт с открытой камерой сгорания. Работает в закрытой системе отопления с давлением до 3 бар — то есть с насосом и расширительным баком.",
-    "images": ["images/lemax-premier-17-4.jpg", "images/lemax-premier-17-4-2.jpg", "images/lemax-premier-17-4-3.jpg", "images/lemax-premier-17-4-4.jpg", "images/lemax-premier-17-4-5.jpg"],
+    "images": ["images/lemax-premier-17-4-5.jpg", "images/lemax-premier-17-4-2.jpg", "images/lemax-premier-17-4-3.jpg", "images/lemax-premier-17-4-4.jpg", "images/lemax-premier-17-4.jpg"],
     "specs": [
       [
         "Тип",
