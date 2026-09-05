@@ -417,9 +417,13 @@ h1,h2,h3,.cond{
 }
 .lightbox-stage{
   flex:1; width:100%; max-width:1100px; display:flex; align-items:center;
-  justify-content:center; min-height:0;
+  justify-content:center; min-height:0; overflow:hidden;
 }
-.lightbox-img{max-width:100%; max-height:100%; object-fit:contain;}
+.lightbox-img{
+  max-width:100%; max-height:100%; object-fit:contain; cursor:zoom-in;
+  transition:transform .18s ease-out;
+}
+.lightbox-img.zoomed{transform:scale(2.4); cursor:zoom-out;}
 .lightbox-close{
   position:absolute; top:16px; right:20px; width:42px; height:42px; border-radius:50%;
   border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff;

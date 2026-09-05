@@ -296,6 +296,24 @@ function lightboxStep(delta){
   lightboxIndex = (lightboxIndex + delta + lightboxImages.length) % lightboxImages.length;
   renderLightbox();
 }
+/* Клик по фото — приближает область под курсором; повторный клик возвращает обычный размер. */
+function lightboxSetZoomOrigin(e){
+  const img = e.currentTarget;
+  const rect = img.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  img.style.transformOrigin = `${x}% ${y}%`;
+}
+function lightboxToggleZoom(e){
+  const img = e.currentTarget;
+  if(img.classList.contains('zoomed')){
+    img.classList.remove('zoomed');
+    img.style.transformOrigin = '';
+  } else {
+    lightboxSetZoomOrigin(e);
+    img.classList.add('zoomed');
+  }
+}
 function lightboxKeydown(e){
   if(e.key === 'Escape') closeLightbox();
   else if(e.key === 'ArrowLeft') lightboxStep(-1);
@@ -317,8 +335,14 @@ function renderLightbox(){
       <div class="lightbox-thumbs"></div>`;
     el.addEventListener('click', e => { if(e.target === el || e.target.classList.contains('lightbox-stage')) closeLightbox(); });
     document.body.appendChild(el);
+    const imgEl = el.querySelector('.lightbox-img');
+    imgEl.addEventListener('click', e => { e.stopPropagation(); lightboxToggleZoom(e); });
+    imgEl.addEventListener('mousemove', e => { if(imgEl.classList.contains('zoomed')) lightboxSetZoomOrigin(e); });
   }
-  el.querySelector('.lightbox-img').src = lightboxImages[lightboxIndex];
+  const lbImg = el.querySelector('.lightbox-img');
+  lbImg.classList.remove('zoomed');
+  lbImg.style.transformOrigin = '';
+  lbImg.src = lightboxImages[lightboxIndex];
   el.querySelector('.lightbox-count').textContent = hasMany ? `${lightboxIndex + 1} / ${lightboxImages.length}` : '';
   el.querySelector('.lightbox-prev').style.display = hasMany ? '' : 'none';
   el.querySelector('.lightbox-next').style.display = hasMany ? '' : 'none';
