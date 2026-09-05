@@ -1234,7 +1234,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Та же комбинированная плита, но с фасадом и поверхностью из нержавеющей стали. Стеклянная крышка и чугунные решётки — тяжелее эмалированных, посуда стоит устойчивее.",
-    "images": ["images/gefest-pge-5102-03-0027.webp", "images/gefest-pge-5102-03-0027-2.webp", "images/gefest-pge-5102-03-0027-3.webp", "images/gefest-pge-5102-03-0027-4.webp", "images/gefest-pge-5102-03-0027-5.webp", "images/gefest-pge-5102-03-0027-6.webp", "images/gefest-pge-5102-03-0027-7.webp", "images/gefest-pge-5102-03-0027-8.webp", "images/gefest-pge-5102-03-0027-9.webp"],
+    "images": ["images/gefest-pge-5102-03-0027-5.webp", "images/gefest-pge-5102-03-0027-2.webp", "images/gefest-pge-5102-03-0027-3.webp", "images/gefest-pge-5102-03-0027-4.webp", "images/gefest-pge-5102-03-0027.webp", "images/gefest-pge-5102-03-0027-6.webp", "images/gefest-pge-5102-03-0027-7.webp", "images/gefest-pge-5102-03-0027-8.webp", "images/gefest-pge-5102-03-0027-9.webp"],
     "specs": [
       [
         "Тип",
