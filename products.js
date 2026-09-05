@@ -1171,7 +1171,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Лемакс",
     "desc": "Мощнее младшей модели: 24 кВт и 12 л/мин — хватает на кухню и душ, если пользоваться по очереди. Работает при давлении воды от 0,2 атм, есть резервное питание от батареек.",
-    "images": [],
+    "images": ["images/lemax-classic-24.jpg", "images/lemax-classic-24-2.jpg", "images/lemax-classic-24-3.jpg", "images/lemax-classic-24-4.jpg", "images/lemax-classic-24-5.jpg", "images/lemax-classic-24-6.png"],
     "specs": [
       [
         "Тип",
@@ -1234,7 +1234,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Та же комбинированная плита, но с фасадом и поверхностью из нержавеющей стали. Стеклянная крышка и чугунные решётки — тяжелее эмалированных, посуда стоит устойчивее.",
-    "images": [],
+    "images": ["images/gefest-pge-5102-03-0027.webp", "images/gefest-pge-5102-03-0027-2.webp", "images/gefest-pge-5102-03-0027-3.webp", "images/gefest-pge-5102-03-0027-4.webp", "images/gefest-pge-5102-03-0027-5.webp", "images/gefest-pge-5102-03-0027-6.webp", "images/gefest-pge-5102-03-0027-7.webp", "images/gefest-pge-5102-03-0027-8.webp", "images/gefest-pge-5102-03-0027-9.webp"],
     "specs": [
       [
         "Тип",
@@ -1297,7 +1297,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Комбинированная плита 50 см: газовые конфорки и электрическая духовка. Средняя комплектация серии 5102 — без отделки нержавейкой.",
-    "images": [],
+    "images": ["images/gefest-pge-5102-02.jpg", "images/gefest-pge-5102-02-2.jpg", "images/gefest-pge-5102-02-3.jpg", "images/gefest-pge-5102-02-4.jpg", "images/gefest-pge-5102-02-5.jpg"],
     "specs": [
       [
         "Тип",
@@ -1340,7 +1340,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Дарина",
     "desc": "Компактная комбинированная плита: газовые конфорки, электрическая духовка. Недорогой вариант для дачи или небольшой кухни.",
-    "images": [],
+    "images": ["images/darina-s-km521-300w.webp", "images/darina-s-km521-300w-2.webp", "images/darina-s-km521-300w-3.webp", "images/darina-s-km521-300w-4.webp"],
     "specs": [
       [
         "Тип",
@@ -1395,7 +1395,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Дарина",
     "desc": "Простая газовая плита 50 см с газовой духовкой. Эмалированная поверхность, крашеный корпус, белый цвет — классический вариант без лишних функций.",
-    "images": [],
+    "images": ["images/darina-1as-gm521-001w.webp", "images/darina-1as-gm521-001w-2.webp", "images/darina-1as-gm521-001w-3.webp", "images/darina-1as-gm521-001w-4.webp"],
     "specs": [
       [
         "Тип",
@@ -1458,7 +1458,7 @@ const PRODUCTS = [
     "category": "schetchiki",
     "brand": "Норма",
     "desc": "Универсальный счётчик воды 1/2 дюйма — ставится и на холодную, и на горячую. Соответствует требованиям к приборам учёта питьевой и сетевой воды.",
-    "images": [],
+    "images": ["images/svkm-15u.webp", "images/svkm-15u-2.webp", "images/svkm-15u-3.webp"],
     "specs": [
       [
         "Тип",
@@ -1584,7 +1584,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Electrolux",
     "desc": "Компактный проточный водонагреватель серии NanoPlus. Электронное управление с дисплеем, автоматическое поддержание заданной температуры.",
-    "images": [],
+    "images": ["images/electrolux-gwh-nanoplus-20.webp", "images/electrolux-gwh-nanoplus-20-2.webp", "images/electrolux-gwh-nanoplus-20-3.webp", "images/electrolux-gwh-nanoplus-20-4.webp", "images/electrolux-gwh-nanoplus-20-5.webp", "images/electrolux-gwh-nanoplus-20-6.webp", "images/electrolux-gwh-nanoplus-20-7.webp"],
     "specs": [
       [
         "Серия",
@@ -1611,7 +1611,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Плита 50 см с большой духовкой на 52 л, грилем 1900 Вт и вертелом — можно запекать птицу целиком с равномерной корочкой. Механический таймер и газ-контроль духовки.",
-    "images": [],
+    "images": ["images/gefest-5100-02-0185.jpg", "images/gefest-5100-02-0185-2.jpg", "images/gefest-5100-02-0185-3.jpg", "images/gefest-5100-02-0185-4.jpg"],
     "specs": [
       [
         "Тип",
@@ -1694,7 +1694,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Базовая газовая плита 50 см с четырьмя конфорками и эмалированной поверхностью. Простая и понятная — без электроники, которой нечего ломаться.",
-    "images": [],
+    "images": ["images/gefest-pg-5100-0017.jpg", "images/gefest-pg-5100-0017-2.jpg", "images/gefest-pg-5100-0017-3.jpg", "images/gefest-pg-5100-0017-4.jpg", "images/gefest-pg-5100-0017-5.jpg", "images/gefest-pg-5100-0017-6.jpg", "images/gefest-pg-5100-0017-7.jpg", "images/gefest-pg-5100-0017-8.jpg"],
     "specs": [
       [
         "Тип",
@@ -1749,7 +1749,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Широкая плита 60 см с газовой поверхностью и электрической духовкой. На 10 см шире стандартной — больше места между конфорками для крупной посуды.",
-    "images": [],
+    "images": ["images/gefest-6112-02-0112.jpg", "images/gefest-6112-02-0112-2.jpg", "images/gefest-6112-02-0112-3.jpg", "images/gefest-6112-02-0112-4.jpg", "images/gefest-6112-02-0112-5.jpg"],
     "specs": [
       [
         "Тип",
@@ -1816,7 +1816,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Гефест",
     "desc": "Настольная плита на две конфорки — для дачи, времянки или маленькой кухни. Ставится на стол, духовки нет.",
-    "images": [],
+    "images": ["images/gefest-pg-700-02.jpg", "images/gefest-pg-700-02-2.jpg", "images/gefest-pg-700-02-3.jpg"],
     "specs": [
       [
         "Тип",
@@ -1859,7 +1859,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Navien",
     "desc": "Настенный двухконтурный котёл на 16 кВт — до 160 м². Два раздельных теплообменника: отопление и горячая вода работают независимо. Закрытая камера, компактный корпус.",
-    "images": [],
+    "images": ["images/navien-deluxe-c16k.webp", "images/navien-deluxe-c16k-2.webp", "images/navien-deluxe-c16k-3.webp", "images/navien-deluxe-c16k-4.webp", "images/navien-deluxe-c16k-5.webp", "images/navien-deluxe-c16k-6.webp"],
     "specs": [
       [
         "Тип",
@@ -1922,7 +1922,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Лемакс",
     "desc": "Напольный котёл на 30 кВт — до 300 м², самый мощный в каталоге. Энергонезависимый: работает без электричества, что выручает при отключениях. Итальянская автоматика, стальной теплообменник 2 мм, защита от перегрева, обратной тяги и задувания.",
-    "images": [],
+    "images": ["images/lemax-premium-30n.jpg", "images/lemax-premium-30n-2.jpg", "images/lemax-premium-30n-3.jpg", "images/lemax-premium-30n-4.jpg", "images/lemax-premium-30n-5.jpg", "images/lemax-premium-30n-6.jpg"],
     "specs": [
       [
         "Тип",
