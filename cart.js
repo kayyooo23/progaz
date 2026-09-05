@@ -98,8 +98,19 @@ const COMPARE_KEY = 'progaz_compare_v1';
 const COMPARE_MAX = 4;
 
 function compareGet(){
-  try{ return JSON.parse(localStorage.getItem(COMPARE_KEY)) || []; }
+  let list;
+  try{ list = JSON.parse(localStorage.getItem(COMPARE_KEY)) || []; }
   catch(e){ return []; }
+  // На случай, если товар переименовали/сняли с продажи — не показываем
+  // в счётчике то, чего больше нет, и сразу чистим сохранённый список.
+  if(typeof PRODUCTS !== 'undefined'){
+    const clean = list.filter(slug => PRODUCTS.some(p => p.slug === slug));
+    if(clean.length !== list.length){
+      localStorage.setItem(COMPARE_KEY, JSON.stringify(clean));
+    }
+    return clean;
+  }
+  return list;
 }
 function compareSave(list){
   localStorage.setItem(COMPARE_KEY, JSON.stringify(list));
