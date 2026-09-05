@@ -33,10 +33,19 @@ function mediaImg(p, sw){
   return `<img src="${list[0]}" alt="${escAttr(p.name)}" loading="lazy" onerror="${escAttr(chain)}">`;
 }
 
+function compareBtn(p){
+  const active = compareHas(p.slug) ? ' active' : '';
+  return `<button type="button" class="compare-btn${active}" data-slug="${escAttr(p.slug)}" aria-label="Добавить к сравнению" title="Сравнить"
+    onclick="event.preventDefault(); event.stopPropagation(); compareToggle('${esc(p.slug)}','${esc(p.name)}');">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+  </button>`;
+}
+
 function productCard(p){
   return `<article class="card" data-cat="${p.category}">
     <a href="/product?slug=${p.slug}" class="card-media" aria-label="${escAttr(p.name)}">
       <span class="card-art mono">${articleOf(p)}</span>
+      ${compareBtn(p)}
       ${mediaImg(p, 1.2)}
     </a>
     <div class="card-body">
@@ -446,6 +455,11 @@ function renderProduct(){
           Добавить в корзину
         </button>
         <a href="tel:+79082640158" class="btn btn-ghost">Спросить по телефону</a>
+        <button type="button" class="btn btn-ghost compare-toggle-btn${compareHas(p.slug) ? ' active' : ''}" data-slug="${escAttr(p.slug)}"
+          onclick="compareToggle('${esc(p.slug)}','${esc(p.name)}');">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          Сравнить
+        </button>
       </div>
     </div>
   </div>
@@ -491,6 +505,50 @@ function renderCartPage(){
       <a href="/checkout" class="btn btn-gas btn-block" style="margin-top:14px;">Оформить заказ</a>
     </div>
   </div>`;
+}
+
+/* ---------------- Сравнение товаров ---------------- */
+function renderComparePage(){
+  const root = document.getElementById('compareRoot');
+  if(!root) return;
+  const slugs = compareGet();
+  const items = slugs.map(s => PRODUCTS.find(p => p.slug === s)).filter(Boolean);
+
+  if(items.length === 0){
+    root.innerHTML = `<div class="cart-empty"><p>Список сравнения пуст. Отметьте товары в каталоге значком сравнения.</p>
+      <a href="/catalog" class="btn btn-gas">Открыть каталог</a></div>`;
+    return;
+  }
+
+  // Объединённый список характеристик — по порядку первого товара,
+  // затем добавляем то, чего у него не было, из остальных.
+  const labels = [];
+  items.forEach(p => p.specs.forEach(([k]) => { if(!labels.includes(k)) labels.push(k); }));
+
+  const head = items.map(p => `<th>
+    <button class="compare-remove" onclick="compareRemove('${esc(p.slug)}')" aria-label="Убрать из сравнения">×</button>
+    <a href="/product?slug=${p.slug}" class="compare-thumb">${mediaImg(p, 1.4)}</a>
+    <div class="card-brand">${p.brand}</div>
+    <a href="/product?slug=${p.slug}" class="compare-name">${p.name}</a>
+    <div class="compare-price mono">${formatPrice(p.price)}</div>
+    <button class="btn btn-gas btn-sm btn-block" onclick="cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}',1)">В корзину</button>
+  </th>`).join('');
+
+  const rows = labels.map(label => {
+    const cells = items.map(p => {
+      const spec = p.specs.find(([k]) => k === label);
+      return `<td>${spec ? spec[1] : '—'}</td>`;
+    }).join('');
+    return `<tr><th class="compare-row-label">${label}</th>${cells}</tr>`;
+  }).join('');
+
+  root.innerHTML = `
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead><tr><th class="compare-row-label"></th>${head}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
 }
 
 /* ---------------- Оформление ---------------- */

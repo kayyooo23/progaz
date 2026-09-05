@@ -71,6 +71,56 @@ function showToast(text){
 
 document.addEventListener('DOMContentLoaded', cartUpdateBadge);
 
+// ---- Сравнение товаров: тоже через localStorage, до 4 позиций ----
+const COMPARE_KEY = 'progaz_compare_v1';
+const COMPARE_MAX = 4;
+
+function compareGet(){
+  try{ return JSON.parse(localStorage.getItem(COMPARE_KEY)) || []; }
+  catch(e){ return []; }
+}
+function compareSave(list){
+  localStorage.setItem(COMPARE_KEY, JSON.stringify(list));
+  compareUpdateBadge();
+}
+function compareHas(slug){
+  return compareGet().includes(slug);
+}
+function compareCount(){
+  return compareGet().length;
+}
+function compareToggle(slug, name){
+  let list = compareGet();
+  const wasIn = list.includes(slug);
+  if(wasIn){
+    list = list.filter(s => s !== slug);
+  } else {
+    if(list.length >= COMPARE_MAX){
+      showToast(`Можно сравнить не более ${COMPARE_MAX} товаров`);
+      return;
+    }
+    list.push(slug);
+  }
+  compareSave(list);
+  document.querySelectorAll(`.compare-btn[data-slug="${slug}"], .compare-toggle-btn[data-slug="${slug}"]`).forEach(b => b.classList.toggle('active', !wasIn));
+  if(!wasIn) showToast(`Добавлено к сравнению: ${name}`);
+  if(typeof renderComparePage === 'function') renderComparePage();
+}
+function compareRemove(slug){
+  compareSave(compareGet().filter(s => s !== slug));
+  document.querySelectorAll(`.compare-btn[data-slug="${slug}"], .compare-toggle-btn[data-slug="${slug}"]`).forEach(b => b.classList.remove('active'));
+  if(typeof renderComparePage === 'function') renderComparePage();
+}
+function compareUpdateBadge(){
+  const badges = document.querySelectorAll('.compare-count');
+  const n = compareCount();
+  badges.forEach(b => {
+    b.textContent = n;
+    b.style.display = n > 0 ? 'flex' : 'none';
+  });
+}
+document.addEventListener('DOMContentLoaded', compareUpdateBadge);
+
 // ---- Mobile nav toggle (shared header behaviour) ----
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.nav-toggle');

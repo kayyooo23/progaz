@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /cart
 Disallow: /checkout
+Disallow: /compare
 
 Sitemap: https://ck623906.tw1.ru/sitemap.xml
