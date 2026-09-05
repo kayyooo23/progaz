@@ -1340,7 +1340,7 @@ const PRODUCTS = [
     "category": "plity",
     "brand": "Дарина",
     "desc": "Компактная комбинированная плита: газовые конфорки, электрическая духовка. Недорогой вариант для дачи или небольшой кухни.",
-    "images": ["images/darina-s-km521-300w.webp", "images/darina-s-km521-300w-2.webp", "images/darina-s-km521-300w-3.webp", "images/darina-s-km521-300w-4.webp"],
+    "images": ["images/darina-s-km521-300w-3.webp", "images/darina-s-km521-300w-2.webp", "images/darina-s-km521-300w.webp", "images/darina-s-km521-300w-4.webp"],
     "specs": [
       [
         "Тип",
@@ -1584,7 +1584,7 @@ const PRODUCTS = [
     "category": "kolonki",
     "brand": "Electrolux",
     "desc": "Компактный проточный водонагреватель серии NanoPlus. Электронное управление с дисплеем, автоматическое поддержание заданной температуры.",
-    "images": ["images/electrolux-gwh-nanoplus-20.webp", "images/electrolux-gwh-nanoplus-20-2.webp", "images/electrolux-gwh-nanoplus-20-3.webp", "images/electrolux-gwh-nanoplus-20-4.webp", "images/electrolux-gwh-nanoplus-20-5.webp", "images/electrolux-gwh-nanoplus-20-6.webp", "images/electrolux-gwh-nanoplus-20-7.webp"],
+    "images": ["images/electrolux-gwh-nanoplus-20-3.webp", "images/electrolux-gwh-nanoplus-20-2.webp", "images/electrolux-gwh-nanoplus-20.webp", "images/electrolux-gwh-nanoplus-20-4.webp", "images/electrolux-gwh-nanoplus-20-5.webp", "images/electrolux-gwh-nanoplus-20-6.webp", "images/electrolux-gwh-nanoplus-20-7.webp"],
     "specs": [
       [
         "Серия",
@@ -1859,7 +1859,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Navien",
     "desc": "Настенный двухконтурный котёл на 16 кВт — до 160 м². Два раздельных теплообменника: отопление и горячая вода работают независимо. Закрытая камера, компактный корпус.",
-    "images": ["images/navien-deluxe-c16k.webp", "images/navien-deluxe-c16k-2.webp", "images/navien-deluxe-c16k-3.webp", "images/navien-deluxe-c16k-4.webp", "images/navien-deluxe-c16k-5.webp", "images/navien-deluxe-c16k-6.webp"],
+    "images": ["images/navien-deluxe-c16k-2.webp", "images/navien-deluxe-c16k.webp", "images/navien-deluxe-c16k-3.webp", "images/navien-deluxe-c16k-4.webp", "images/navien-deluxe-c16k-5.webp", "images/navien-deluxe-c16k-6.webp"],
     "specs": [
       [
         "Тип",
@@ -1922,7 +1922,7 @@ const PRODUCTS = [
     "category": "kotly",
     "brand": "Лемакс",
     "desc": "Напольный котёл на 30 кВт — до 300 м², самый мощный в каталоге. Энергонезависимый: работает без электричества, что выручает при отключениях. Итальянская автоматика, стальной теплообменник 2 мм, защита от перегрева, обратной тяги и задувания.",
-    "images": ["images/lemax-premium-30n.jpg", "images/lemax-premium-30n-2.jpg", "images/lemax-premium-30n-3.jpg", "images/lemax-premium-30n-4.jpg", "images/lemax-premium-30n-5.jpg", "images/lemax-premium-30n-6.jpg"],
+    "images": ["images/lemax-premium-30n-6.jpg", "images/lemax-premium-30n-2.jpg", "images/lemax-premium-30n-3.jpg", "images/lemax-premium-30n-4.jpg", "images/lemax-premium-30n-5.jpg", "images/lemax-premium-30n.jpg"],
     "specs": [
       [
         "Тип",
