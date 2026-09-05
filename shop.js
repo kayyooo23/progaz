@@ -261,14 +261,71 @@ function switchImage(src, btn){
   thumbs.forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
 }
+function currentThumbIndex(){
+  const thumbs = Array.from(document.querySelectorAll('.product-thumb'));
+  if(!thumbs.length) return 0;
+  const idx = thumbs.findIndex(t => t.classList.contains('active'));
+  return idx === -1 ? 0 : idx;
+}
 function stepImage(delta){
   const thumbs = Array.from(document.querySelectorAll('.product-thumb'));
   if(!thumbs.length) return;
-  let idx = thumbs.findIndex(t => t.classList.contains('active'));
-  idx = (idx + delta + thumbs.length) % thumbs.length;
+  const idx = (currentThumbIndex() + delta + thumbs.length) % thumbs.length;
   const btn = thumbs[idx];
   const src = btn.querySelector('img').getAttribute('src');
   switchImage(src, btn);
+}
+
+/* ---------------- Просмотр фото на весь экран ---------------- */
+let lightboxImages = [];
+let lightboxIndex = 0;
+function openLightbox(index){
+  if(!lightboxImages.length) return;
+  lightboxIndex = index || 0;
+  renderLightbox();
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', lightboxKeydown);
+}
+function closeLightbox(){
+  const el = document.getElementById('lightbox');
+  if(el) el.remove();
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', lightboxKeydown);
+}
+function lightboxStep(delta){
+  lightboxIndex = (lightboxIndex + delta + lightboxImages.length) % lightboxImages.length;
+  renderLightbox();
+}
+function lightboxKeydown(e){
+  if(e.key === 'Escape') closeLightbox();
+  else if(e.key === 'ArrowLeft') lightboxStep(-1);
+  else if(e.key === 'ArrowRight') lightboxStep(1);
+}
+function renderLightbox(){
+  let el = document.getElementById('lightbox');
+  const hasMany = lightboxImages.length > 1;
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'lightbox';
+    el.className = 'lightbox';
+    el.innerHTML = `
+      <button class="lightbox-close" type="button" aria-label="Закрыть" onclick="closeLightbox()">&times;</button>
+      <span class="lightbox-count"></span>
+      <button class="lightbox-arrow lightbox-prev" type="button" aria-label="Предыдущее фото" onclick="lightboxStep(-1)">&#8249;</button>
+      <div class="lightbox-stage"><img class="lightbox-img" alt="Фото товара"></div>
+      <button class="lightbox-arrow lightbox-next" type="button" aria-label="Следующее фото" onclick="lightboxStep(1)">&#8250;</button>
+      <div class="lightbox-thumbs"></div>`;
+    el.addEventListener('click', e => { if(e.target === el || e.target.classList.contains('lightbox-stage')) closeLightbox(); });
+    document.body.appendChild(el);
+  }
+  el.querySelector('.lightbox-img').src = lightboxImages[lightboxIndex];
+  el.querySelector('.lightbox-count').textContent = hasMany ? `${lightboxIndex + 1} / ${lightboxImages.length}` : '';
+  el.querySelector('.lightbox-prev').style.display = hasMany ? '' : 'none';
+  el.querySelector('.lightbox-next').style.display = hasMany ? '' : 'none';
+  el.querySelector('.lightbox-thumbs').innerHTML = hasMany ? lightboxImages.map((src, i) =>
+    `<button class="lightbox-thumb${i === lightboxIndex ? ' active' : ''}" type="button" onclick="lightboxIndex=${i};renderLightbox()">
+       <img src="${src}" alt="Фото ${i + 1}" loading="lazy"></button>`
+  ).join('') : '';
 }
 function toggleSpecs(btn, total){
   const table = btn.previousElementSibling;
@@ -318,6 +375,7 @@ function renderProduct(){
   const shortRows = p.specs.slice(0, SHORT_SPECS_COUNT).map(row).join('');
   const extraRows = p.specs.slice(SHORT_SPECS_COUNT).map(row).join('');
   const hasMoreSpecs = p.specs.length > SHORT_SPECS_COUNT;
+  lightboxImages = p.images && p.images.length ? p.images : [];
   const related = PRODUCTS.filter(x => x.category === p.category && x.slug !== p.slug).slice(0, 4);
   const relatedBlock = related.length ? `<section class="section">
     <div class="container">
@@ -334,7 +392,7 @@ function renderProduct(){
   <div class="container product-detail">
     <div class="product-gallery">
       <div class="product-media-wrap">
-        <div class="product-media" id="mainMedia">${mediaImg(p, 1)}</div>
+        <div class="product-media${lightboxImages.length ? ' zoomable' : ''}" id="mainMedia"${lightboxImages.length ? ' onclick="openLightbox(currentThumbIndex())"' : ''}>${mediaImg(p, 1)}</div>
         ${galleryArrows(p)}
       </div>
       ${galleryThumbs(p)}

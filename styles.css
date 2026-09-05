@@ -407,6 +407,57 @@ h1,h2,h3,.cond{
 .product-thumb:hover{border-color:var(--steel-300);}
 .product-thumb.active{border-color:var(--gas); border-width:2px;}
 
+.product-media.zoomable{cursor:zoom-in;}
+
+/* ---------- Просмотр фото на весь экран ---------- */
+.lightbox{
+  position:fixed; inset:0; z-index:1000; background:rgba(10,15,20,.94);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:64px 16px 24px;
+}
+.lightbox-stage{
+  flex:1; width:100%; max-width:1100px; display:flex; align-items:center;
+  justify-content:center; min-height:0;
+}
+.lightbox-img{max-width:100%; max-height:100%; object-fit:contain;}
+.lightbox-close{
+  position:absolute; top:16px; right:20px; width:42px; height:42px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff;
+  font-size:26px; line-height:1; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .15s;
+}
+.lightbox-close:hover{background:rgba(255,255,255,.18);}
+.lightbox-count{
+  position:absolute; top:26px; left:24px; color:#B9C3CC;
+  font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.04em;
+}
+.lightbox-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:48px; height:48px; border-radius:50%; border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.08); color:#fff; font-size:26px; line-height:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background .15s, transform .15s;
+}
+.lightbox-arrow:hover{background:rgba(255,255,255,.18); transform:translateY(-50%) scale(1.06);}
+.lightbox-prev{left:16px;}
+.lightbox-next{right:16px;}
+.lightbox-thumbs{
+  display:flex; gap:9px; margin-top:18px; max-width:100%; overflow-x:auto; padding:2px;
+}
+.lightbox-thumb{
+  flex-shrink:0; width:60px; height:60px; border:1.5px solid rgba(255,255,255,.2);
+  border-radius:var(--r-sm); background:rgba(255,255,255,.06); overflow:hidden; padding:0; cursor:pointer;
+}
+.lightbox-thumb img{width:100%; height:100%; object-fit:contain; padding:5px; box-sizing:border-box;}
+.lightbox-thumb.active{border-color:var(--gas); border-width:2px;}
+@media (max-width:640px){
+  .lightbox{padding:56px 8px 16px;}
+  .lightbox-arrow{width:38px; height:38px; font-size:20px;}
+  .lightbox-prev{left:6px;}
+  .lightbox-next{right:6px;}
+  .lightbox-thumbs{display:none;}
+}
+
 .product-info h1{font-size:clamp(21px,2.5vw,29px); margin:9px 0 14px;}
 .product-art{
   font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--steel-500);
