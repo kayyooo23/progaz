@@ -542,10 +542,17 @@ function renderComparePage(){
     return `<tr><th class="compare-row-label">${label}</th>${cells}</tr>`;
   }).join('');
 
+  const cornerCell = items.length < COMPARE_MAX
+    ? `<a href="/catalog" class="compare-add-link">
+         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+         Добавить товар
+       </a>`
+    : '';
+
   root.innerHTML = `
     <div class="compare-table-wrap">
       <table class="compare-table">
-        <thead><tr><th class="compare-row-label"></th>${head}</tr></thead>
+        <thead><tr><th class="compare-row-label compare-corner">${cornerCell}</th>${head}</tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>`;
