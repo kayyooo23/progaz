@@ -65,7 +65,10 @@ function cartClear(){
   cartUpdateBadge();
 }
 function cartUpdateBadge(){
-  const badges = document.querySelectorAll('.cart-count');
+  // .compare-count тоже навешен на span с классом cart-count (общий вид
+  // значка), поэтому явно его исключаем — иначе после cartSave() туда
+  // на секунду попадает число товаров в корзине вместо сравнения.
+  const badges = document.querySelectorAll('.cart-count:not(.compare-count)');
   const n = cartCount();
   badges.forEach(b => {
     b.textContent = n;
