@@ -41,6 +41,30 @@ function compareBtn(p){
   </button>`;
 }
 
+/* Пока товара нет в корзине — кнопка «+». Как только добавили,
+   на её месте появляется счётчик количества (−  N  +). */
+function cardFootActions(p){
+  const qty = cartQtyFor(p.slug);
+  if(qty > 0){
+    return `<div class="qty-stepper">
+      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); cartDec('${esc(p.slug)}');" aria-label="Меньше">−</button>
+      <span class="qty-stepper-count">${qty}</span>
+      <button type="button" onclick="event.preventDefault(); event.stopPropagation(); cartInc('${esc(p.slug)}');" aria-label="Больше">+</button>
+    </div>`;
+  }
+  return `<button type="button" class="add-btn" onclick="event.preventDefault(); event.stopPropagation(); cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}',1);" aria-label="Добавить в корзину">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+  </button>`;
+}
+function refreshCardFoot(slug){
+  const p = PRODUCTS.find(x => x.slug === slug);
+  if(!p) return;
+  document.querySelectorAll(`.card-foot[data-foot-slug="${slug}"]`).forEach(foot => {
+    const host = foot.querySelector('.add-btn, .qty-stepper');
+    if(host) host.outerHTML = cardFootActions(p);
+  });
+}
+
 function productCard(p){
   return `<article class="card" data-cat="${p.category}">
     <a href="/product?slug=${p.slug}" class="card-media" aria-label="${escAttr(p.name)}">
@@ -52,11 +76,9 @@ function productCard(p){
       <div class="card-brand">${p.brand}</div>
       <h3 class="card-title"><a href="/product?slug=${p.slug}">${p.name}</a></h3>
       <div class="card-spec">${p.specs[0][0]}: ${p.specs[0][1]}</div>
-      <div class="card-foot">
+      <div class="card-foot" data-foot-slug="${p.slug}">
         <span class="card-price">${formatPrice(p.price)}</span>
-        <button class="add-btn" onclick="cartAdd('${esc(p.slug)}','${esc(p.name)}',${p.price},'${esc(p.brand)}',1)" aria-label="Добавить в корзину">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        </button>
+        ${cardFootActions(p)}
       </div>
     </div>
   </article>`;
@@ -488,9 +510,9 @@ function renderCartPage(){
       <div class="thumb">${thumbFor(i.slug)}</div>
       <div class="name"><span class="brand">${i.brand}</span><a href="/product?slug=${i.slug}">${i.name}</a></div>
       <div class="qty-control">
-        <button onclick="cartSetQty('${esc(i.slug)}', ${i.qty - 1})" aria-label="Меньше">−</button>
+        <button onclick="cartDec('${esc(i.slug)}')" aria-label="Меньше">−</button>
         <input type="number" value="${i.qty}" min="1" onchange="cartSetQty('${esc(i.slug)}', this.value)" aria-label="Количество">
-        <button onclick="cartSetQty('${esc(i.slug)}', ${i.qty + 1})" aria-label="Больше">+</button>
+        <button onclick="cartInc('${esc(i.slug)}')" aria-label="Больше">+</button>
       </div>
       <div class="mono" style="font-weight:700;">${formatPrice(i.price * i.qty)}</div>
       <button class="remove" onclick="cartRemove('${esc(i.slug)}')" aria-label="Убрать из корзины">×</button>

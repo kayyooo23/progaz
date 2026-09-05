@@ -19,11 +19,16 @@ function cartAdd(slug, name, price, brand, qty){
   else{ items.push({slug, name, price, brand, qty}); }
   cartSave(items);
   showToast(`Добавлено: ${name}`);
+  if(typeof renderCartPage === 'function') renderCartPage();
+  if(typeof refreshCardFoot === 'function') refreshCardFoot(slug);
 }
 function cartRemove(slug){
-  const items = cartGet().filter(i => i.slug !== slug);
-  cartSave(items);
+  const items = cartGet();
+  const item = items.find(i => i.slug === slug);
+  if(item && !confirm(`Убрать «${item.name}» из корзины?`)) return;
+  cartSave(items.filter(i => i.slug !== slug));
   if(typeof renderCartPage === 'function') renderCartPage();
+  if(typeof refreshCardFoot === 'function') refreshCardFoot(slug);
 }
 function cartSetQty(slug, qty){
   qty = Math.max(1, parseInt(qty, 10) || 1);
@@ -31,6 +36,23 @@ function cartSetQty(slug, qty){
   const item = items.find(i => i.slug === slug);
   if(item){ item.qty = qty; cartSave(items); }
   if(typeof renderCartPage === 'function') renderCartPage();
+  if(typeof refreshCardFoot === 'function') refreshCardFoot(slug);
+}
+function cartQtyFor(slug){
+  const item = cartGet().find(i => i.slug === slug);
+  return item ? item.qty : 0;
+}
+/* Плюс/минус на карточке товара и в корзине: если убавляют с 1 до 0,
+   товар не пропадает молча — сперва спрашиваем подтверждение. */
+function cartInc(slug){
+  const item = cartGet().find(i => i.slug === slug);
+  if(item) cartSetQty(slug, item.qty + 1);
+}
+function cartDec(slug){
+  const item = cartGet().find(i => i.slug === slug);
+  if(!item) return;
+  if(item.qty <= 1){ cartRemove(slug); }
+  else{ cartSetQty(slug, item.qty - 1); }
 }
 function cartCount(){
   return cartGet().reduce((sum, i) => sum + i.qty, 0);
